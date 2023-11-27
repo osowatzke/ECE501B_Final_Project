@@ -1,5 +1,6 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{enumitem}
+\usepackage{amsmath}
 \usepackage{cite}
 
 \title{PCA-Based Image Compression}
@@ -42,6 +43,12 @@ thoesens@arizona.edu}}
     The SVD is a generalized analog of the eigendecomposition of a matrix, which is a result of the Spectral Theorem for certain linear operators, or square matrices (ref eigendecomp)(ref spectral). The eigenvectors of a full-rank normal operator, found through eigendecomposition, form an orthonormal basis on the inner product space of the operator called an eigenbasis. Thus, any vector in the inner product space can be represented completely and uniquely as an appropriate scaling of the eigenbasis vectors. The vectors of an eigenbasis are also called the modes of the operator. The magnitude of the eigenvalue associated with each mode determines the relative importance, or significance, of the mode. Modes with higher importance, or larger eigenvalues, contain more pertinent information about a vector than modes with smaller eigenvalues. In similar fashion, the right singular vectors of any operator represent the modes of the operator in the domain and the left singular vectors represent the modes in the co-domain. The magnitudes of the singular values determine the relative joint-importance, or joint-significance, of the associated singular vectors.
     
     \subsection{Principle Component Analysis}
+    
+    Using linear combinations of the existing basis, Principle Component Analysis (PCA) seeks to create a new basis which better represents the data \cite{shlens_2014_tutorial}. Let $\mathbf{X}$ be an mxn matrix of samples given with respect to the original basis, and let $\mathbf{Y}$ be an mxn matrix of samples given with respect to the updated basis. The operator $\mathbf{P}$ is an mxm matrix which re-expresses the samples in $\mathbf{X}$ in terms of an updated basis \cite{shlens_2014_tutorial}.
+    
+    \begin{equation}
+    		\mathbf{Y} = \mathbf{PX}
+    \end{equation}
     
     TALK ABOUT PCA HERE
     How does the selected material for your project relate to SVD?
