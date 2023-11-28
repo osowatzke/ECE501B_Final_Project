@@ -4,4 +4,4 @@
 *.gz
 *.log
 *.blg
-*.asv
+*.asv.DS_Store
