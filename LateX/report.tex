@@ -68,7 +68,7 @@ thoesens@arizona.edu}}
     Describe what the Matlab code is doing here. Talk about the color space conversion too.
 
     \subsection{Analysis}
-    As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its principle components. The relative importance, or significance, of a principle component is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective principle components. Shown in Figure \ref{fig:svalplot} is a plot of all 768 singular values of the image wagon.jpg.
+    As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its principle components. The relative importance, or significance, of a principle component is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective principle components.
 
     \begin{figure}[t]
     \includegraphics[width=0.5\textwidth]{svals_wagon}
@@ -76,6 +76,14 @@ thoesens@arizona.edu}}
     \label{fig:svalplot}
     \end{figure}
     
+    Shown in Figure \ref{fig:svalplot} is a plot of the singular values of the image wagon.jpg. Of particular note is the low amount of large singular values, approximately 100, compared to the total of 768. This concentration of large singular values suggests the majority of the principle components contain little information about the image. Thus, removing principle components associated with small singular values agrees with the intuition that images can be reduced in size while preserving most of their information content. 
+
+
+    \begin{figure}[t]
+    \includegraphics[width=0.5\textwidth]{sv_energy_wagon}
+    \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the luminance (Y), and both chrominance (Cb and Cr) channels}
+    \label{fig:svalplot}
+    \end{figure}
     
     Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
 
