@@ -29,7 +29,8 @@ thoesens@arizona.edu}}
     \section{Background}
     PCA was not explicitly covered in ECE 501b but its underlying machinery, the SVD was. An entire lecture was dedicated to covering the SVD, which is an accumulation of many core concepts learned throughout the semester. The SVD employs many linear algebra concepts including inner product spaces, the null space, injectivity and surjectivity, dimensionality, linear independence, bases, orthonormality, linear maps, eigenvalues and eigenvectors, adjoints of linear maps, square roots of linear maps, matrix representations of linear maps, matrix decomposition, diagonal matrices, square matrices, unitary and orthonormal matrices.
 
-    Motivation for compression of natural images?
+    \subsection{Motivation}
+    %Motivation for compression of natural images?
 
 
     \subsection{Singular Value Decomposition}
@@ -52,9 +53,9 @@ thoesens@arizona.edu}}
     		\mathbf{Y} = \mathbf{PX}
     \end{equation}
     
-    TALK ABOUT PCA HERE
-    How does the selected material for your project relate to SVD?
-    Theory of compression using PCA
+    %TALK ABOUT PCA HERE
+    %How does the selected material for your project relate to SVD?
+    %Theory of compression using PCA
 
 
     \section{Results}
@@ -68,7 +69,7 @@ thoesens@arizona.edu}}
     Describe what the Matlab code is doing here. Talk about the color space conversion too.
 
     \subsection{Analysis}
-    As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its principle components. The relative importance, or significance, of a principle component is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective principle components.
+    As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its modes. The relative importance, or significance, of a mode is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective modes.
 
     \begin{figure}[t]
     \includegraphics[width=0.5\textwidth]{svals_wagon}
@@ -76,21 +77,23 @@ thoesens@arizona.edu}}
     \label{fig:svalplot}
     \end{figure}
     
-    Shown in Figure \ref{fig:svalplot} is a plot of the singular values of the image wagon.jpg. Of particular note is the low amount of large singular values, approximately 100, compared to the total of 768. This concentration of large singular values suggests the majority of the principle components contain little information about the image. Thus, removing principle components associated with small singular values agrees with the intuition that images can be reduced in size while preserving most of their information content. 
+    Shown in Figure \ref{fig:svalplot} is a plot of the singular values of the image wagon.jpg. Of particular note is the low number of large singular values, approximately 100, compared to the total of 768. This concentration of large singular values suggests the majority of the modes contain little information about the image. Thus, removing modes associated with small singular values agrees with the intuition that images can be reduced in size while preserving the majority of the information content. Since the image is completely defined by the combination of all modes, the sum total of the singular values can be seen as an analog for the total information, or energy, contained in the image. Figure \ref{fig:svalenergyplot} shows the accumulation of energy as the number of modes representing the image increases from most to least significant. For example, to represent 80\% of the luminance content of the image, the first 300 modes are needed.
+
+    % Add comments about the differences between the Y and Cb/Cr curves
 
 
     \begin{figure}[t]
     \includegraphics[width=0.5\textwidth]{sv_energy_wagon}
     \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the luminance (Y), and both chrominance (Cb and Cr) channels}
-    \label{fig:svalplot}
+    \label{fig:svalenergyplot}
     \end{figure}
     
-    Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
+    %Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
 
 
     \section{Conclusion}
     
-    Provide a summary and conclusion section in the report. How well did your example correlate or explain the concepts in the selected material? How would you modify your example to make it better? How did your selected project enhance your understanding of ECE 501b material?
+    %Provide a summary and conclusion section in the report. How well did your example correlate or explain the concepts in the selected material? How would you modify your example to make it better? How did your selected project enhance your understanding of ECE 501b material?
 
     \nocite{jaradet_svd_image_compression}
     \nocite{shlens_2014_tutorial}
