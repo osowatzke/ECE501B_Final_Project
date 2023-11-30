@@ -30,8 +30,9 @@ thoesens@arizona.edu}}
     PCA was not explicitly covered in ECE 501b but its underlying machinery, the SVD was. An entire lecture was dedicated to covering the SVD, which is an accumulation of many core concepts learned throughout the semester. The SVD employs many linear algebra concepts including inner product spaces, the null space, injectivity and surjectivity, dimensionality, linear independence, bases, orthonormality, linear maps, eigenvalues and eigenvectors, adjoints of linear maps, square roots of linear maps, matrix representations of linear maps, matrix decomposition, diagonal matrices, square matrices, unitary and orthonormal matrices.
 
     \subsection{Motivation}
-    %Motivation for compression of natural images?
+    Digital images are signals, which means they can be represented in various ways on different bases (ref?). Additionally, where a signal tends to be dense and feature rich in one basis, it is often sparse in another. When a basis is identified such that a sparse representation is possible, content that contains little to no information about the signal can be readily discarded. This leads to the conclusion that signals are \textit{compressible}.
 
+    Many compression techniques exist and all fall into one of two categories: lossy and lossless. Lossless compression is concerned with the reduction of data size while maintaining the capacity to  completely recover the signal without degradation. Lossy compression concedes a level of irreversible degradation upon decompression. PCA-based compression is a lossy technique. Examples of other lossy compression schemes are JPEG, which employs the discrete cosine transform, and JPEG2000, which uses a wavelet transform (ref)(ref).
 
     \subsection{Singular Value Decomposition}
     The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{F}^{n \times n}$, a unique representation of the form shown in equation (ref eq) exists [ref].
@@ -88,22 +89,34 @@ thoesens@arizona.edu}}
     As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its modes. The relative importance, or significance, of a mode is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective modes.
 
     \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{svals_wagon}
-    \caption{Plot showing the singular values of wagon.jpg. The SVD is computed separately for the luminance (Y), and both chrominance (Cb and Cr) channels}
+    \includegraphics[width=0.5\textwidth]{svals_wagon_rgb}
+    \caption{Plot showing the singular values of wagon.jpg. The SVD is computed separately for the red (R), green (G), and blue (B) channels}
     \label{fig:svalplot}
     \end{figure}
     
-    Shown in Figure \ref{fig:svalplot} is a plot of the singular values of the image wagon.jpg. Of particular note is the low number of large singular values, approximately 100, compared to the total of 768. This concentration of large singular values suggests the majority of the modes contain little information about the image. Thus, removing modes associated with small singular values agrees with the intuition that images can be reduced in size while preserving the majority of the information content. Since the image is completely defined by the combination of all modes, the sum total of the singular values can be seen as an analog for the total information, or energy, contained in the image. Figure \ref{fig:svalenergyplot} shows the accumulation of energy as the number of modes representing the image increases from most to least significant. For example, to represent 80\% of the luminance content of the image, the first 300 modes are needed.
-
-    % Add comments about the differences between the Y and Cb/Cr curves
-
+    Shown in Figure \ref{fig:svalplot} is a plot of the singular values of the image wagon.jpg. Of particular note is the low number of large singular values, approximately 100, compared to the total of 768. This concentration of large singular values suggests the majority of the modes contain little information about the image. Thus, removing modes associated with small singular values agrees with the intuition that images can be reduced in size while preserving the majority of the information content. Since the image is completely defined by the combination of all modes, the sum total of the singular values can be seen as an analog for the total information, or energy, contained in the image. Figure \ref{fig:svalenergyplot} shows the accumulation of energy as the number of modes representing the image increases from most to least significant. For example, to represent 80\% of the content of the image, the first 300 modes are needed.
 
     \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{sv_energy_wagon}
-    \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the luminance (Y), and both chrominance (Cb and Cr) channels}
+    \includegraphics[width=0.5\textwidth]{sv_energy_wagon_rgb}
+    \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the red (R), green (G), and blue (B) channels}
     \label{fig:svalenergyplot}
     \end{figure}
     
+    \begin{figure}[t]
+    \includegraphics[width=0.5\textwidth]{show_different_r_wagon}
+    \caption{Wagon wheel image using various numbers of representative modes}
+    \label{fig:showwagondiffr}
+    \end{figure}
+
+    The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but the distortion appears to fade as the number of modes reaches 100-200. FOR SOME REASON THIS DOES NOT AGREE WITH THE CUMULATIVE ENERGY PLOT! (neet to figure out why). This would suggest, at least from a subjective perspective, that the image can be reduced in size by a factor of ~3.34 - 7.68. According to the plot in Figure (ref; show compression ratio vs r), the computed compression ratio for 100-200 modes is between X and Y.
+
+    % Add Compression ratio vs R plot
+
+    % Add SNR vs R plot
+    
+    % Add comments about the differences between the Y and Cb/Cr curves
+
+
     %Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
 
 

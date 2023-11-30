@@ -5,7 +5,8 @@
 % Import image
 imdata_path = fullfile(matlabroot,'toolbox/images/imdata');
 ref = imread(fullfile(imdata_path,'wagon.jpg'));
-imdata = convertToYCbCr(ref);
+%imdata = convertToYCbCr(ref);
+imdata = ref;
 
 % Step size for number of modes to include
 skipCount = 10;
@@ -16,7 +17,7 @@ pSNR = zeros(n,1);
 for r=1:skipCount:nSVs
     [U,S,V,T] = pcaCompression(imdata,r);
     imR = reconstructCompressedImage(U,S,V,T);
-    imR = convertToRgb(imR);
+    %imR = convertToRgb(imR);
     pSNR(ceil(r/skipCount)) = psnr(imR,ref);
 end
 
