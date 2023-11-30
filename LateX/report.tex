@@ -47,12 +47,28 @@ thoesens@arizona.edu}}
     
     \subsection{Principle Component Analysis} \label{pca_section}
     
-    Using linear combinations of the existing basis, Principle Component Analysis (PCA) seeks to create a new basis which better represents the data \cite{shlens_2014_tutorial}. Let $\mathbf{X} \in \mathbf{F}^{m \times n}$ be a matrix of samples given with respect to the original basis, and let $\mathbf{Y} \in \mathbf{F}^{m \times n}$ be a matrix of samples given with respect to the updated basis. The operator $\mathbf{P} \in \mathbf{F}^{m \times n}$ re-expresses the samples in $\mathbf{X}$ in terms of an updated basis, resulting in $\mathbf{Y}$ \cite{shlens_2014_tutorial}.
+    Using linear combinations of the existing basis, Principle Component Analysis (PCA) seeks to create a new basis which better represents the data \cite{shlens_2014_tutorial}. Let $\mathbf{X} \in \mathbf{F}^{m \times n}$ be a matrix of samples given with respect to the original basis, and let $\mathbf{Y} \in \mathbf{F}^{m \times n}$ be a matrix of samples given with respect to the updated basis. The operator $\mathbf{P} \in \mathbf{F}^{m \times m}$ re-expresses the samples in $\mathbf{X}$ in terms of an updated basis, resulting in $\mathbf{Y}$.
     
     \begin{equation}
-    		\mathbf{Y} = \mathbf{PX}
+    		\mathbf{Y} = \mathbf{P^{H}X}
     \end{equation}
     
+    Let $\mathbf{p_i}$ for $i = 1,...,m$ be the columns of $\mathbf{P}$. The vectors $\{\mathbf{p_1},...,\mathbf{p_m}\}$ are the principal components of $\mathbf{X}$. The principle components are orthonormal vectors which maximize sample variance \cite{shlens_2014_tutorial}. Let each column of $\mathbf{X}$ be denoted as $\mathbf{x_j}$ and each column of $\mathbf{Y}$ be denoted as $\mathbf{y_j}$ for $i = 1,...,n$. Each vector $\mathbf{x_j}$ can be written as a linear combination of the basis vectors $\mathbf{p_1},...,\mathbf{p_m}$.
+    
+    \begin{equation}
+    		\mathbf{x_j} = \langle \mathbf{x_j}, \mathbf{p_1}\rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_j}, \mathbf{p_m}\rangle \mathbf{p_m}
+    	\end{equation}
+    	
+    	Each coordinate in $\mathbf{y_j}$ is the scaling applied to the corresponding basis vector.
+    	
+    	\begin{equation}
+    		\mathbf{y_j} = \begin{bmatrix}
+    			\langle \mathbf{x_j}, \mathbf{p_1} \rangle\\
+    			\vdots \\
+    			\langle \mathbf{x_j}, \mathbf{p_m}\rangle
+    		\end{bmatrix}
+    	\end{equation}
+    	
     %TALK ABOUT PCA HERE
     %How does the selected material for your project relate to SVD?
     %Theory of compression using PCA
