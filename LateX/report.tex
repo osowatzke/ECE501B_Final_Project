@@ -136,7 +136,7 @@ thoesens@arizona.edu}}
 
     where $peakval$ is the maximum representable value of the image's datatype and $MSE$ is the mean squared error between the compressed image and original, uncompressed image.
 
-    Figure \ref{fig:psnrvsr_wagon} shows a plot of PSNR versus number of modes representing the wagon image. PSNR rises rapidly for the first few modes, then steadily for the total number of modes ranging from ~100 to ~550, then rapidly again as the decompressed image approaches the true image in value. Theoretical PSNR for a perfect reconstruction is infinity but is unlikely to be achieved due to quantization error. According to [ref] typical PSNR values for high quality lossy reconstruction of an 8-bit image are 30-50dB. This agrees with our results which show a PSNR range of 27-34dB for 200-400 modes.
+    Figure \ref{fig:psnrvsr_wagon} shows a plot of PSNR versus number of modes representing the wagon image. PSNR rises rapidly for the first few modes, then steadily for the total number of modes ranging from ~100 to ~550, then rapidly again as the decompressed image approaches the true image in value. Theoretical PSNR for a perfect reconstruction is infinity but is unlikely to be achieved due to quantization error. According to \cite{psnr_quality} typical PSNR values for high quality lossy reconstruction of an 8-bit image are 30-50dB. This agrees with our results which show a PSNR range of 27-34dB for 200-400 modes.
 
     \begin{figure}[t]
     \includegraphics[width=0.5\textwidth]{snrvsr_wagon_rgb}
