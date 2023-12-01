@@ -127,16 +127,28 @@ thoesens@arizona.edu}}
     \label{fig:showwagondiffr}
     \end{figure}
 
-    The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but the distortion appears to fade as the number of modes reaches 100-200. FOR SOME REASON THIS DOES NOT AGREE WITH THE CUMULATIVE ENERGY PLOT! (neet to figure out why). This would suggest, at least from a subjective perspective, that the image can be reduced in size by a factor of ~3.34 - 7.68. According to the plot in Figure (ref; show compression ratio vs r), the computed compression ratio for 100-200 modes is between X and Y.
+    The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but distortion appears to fade as the number of modes reaches 200-400. According to the cumulative energy plot in Figure \ref{fig:svalenergyplot}, this level of compression retains 68\% to 88\% of the information content of the image. A more quantitative measure of compressed image quality is peak signal-to-noise ratio (PSNR), defined in Equation \ref{eq:psnr}
+
+    \begin{equation}
+    		PSNR = 10log_{10}(\frac{peakval^2}{MSE})
+    \label{eq:psnr}
+    \end{equation}
+
+    where $peakval$ is the maximum representable value of the image's datatype and $MSE$ is the mean squared error between the compressed image and original, uncompressed image.
+
+    Figure \ref{fig:psnrvsr_wagon} shows a plot of PSNR versus number of modes representing the wagon image. PSNR rises rapidly for the first few modes, then steadily for the total number of modes ranging from ~100 to ~550, then rapidly again as the decompressed image approaches the true image in value. Theoretical PSNR for a perfect reconstruction is infinity but is unlikely to be achieved due to quantization error. According to [ref] typical PSNR values for high quality lossy reconstruction of an 8-bit image are 30-50dB. This agrees with our results which show a PSNR range of 27-34dB for 200-400 modes.
+
+    \begin{figure}[t]
+    \includegraphics[width=0.5\textwidth]{snrvsr_wagon_rgb}
+    \caption{Peak signal-to-noise ratio versus total number of modes}
+    \label{fig:psnrvsr_wagon}
+    \end{figure}
+    
+    Retaining the first 200-400 modes would suggest, at least from a subjective perspective, that the image can be reduced in size by a factor of 1.92 to 3.84. According to the plot in Figure (ref; show compression ratio vs r), the computed compression ratio for 100-200 modes is between X and Y.
 
     % Add Compression ratio vs R plot
 
-    A more qualitative measure of compressed image quality is 
-
-    % Add SNR vs R plot
-    
-    % Add comments about the differences between the Y and Cb/Cr curves
-
+    % Add comments about the differences between the Y and Cb/Cr curves?
 
     %Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
 
