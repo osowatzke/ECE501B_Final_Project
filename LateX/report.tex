@@ -73,11 +73,11 @@ thoesens@arizona.edu}}
     \end{equation}
     
     Let $\mathbf{p_i}$ for $i = 1,...,m$ be the columns of $\mathbf{P}$. The vectors $\{\mathbf{p_1},...,\mathbf{p_m}\}$ are the principal components of $\mathbf{X}$. The principle components are orthonormal vectors which maximize sample variance \cite{shlens_2014_tutorial}. Let each column of $\mathbf{X}$ be denoted as $\mathbf{x_j}$ and each column of $\mathbf{Y}$ be denoted as $\mathbf{y_j}$ for $i = 1,...,n$. Each vector $\mathbf{x_j}$ can be written as a linear combination of the basis vectors $\mathbf{p_1},...,\mathbf{p_m}$.
-    
+    %
     \begin{equation}
         \mathbf{x_j} = \langle \mathbf{x_j}, \mathbf{p_1}\rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_j}, \mathbf{p_m}\rangle \mathbf{p_m}
     \end{equation}
-    	
+    %
     Each coordinate in $\mathbf{y_j}$ is the scaling applied to the corresponding basis vector.
     	
     \begin{equation}
@@ -87,6 +87,7 @@ thoesens@arizona.edu}}
                         \langle \mathbf{x_j}, \mathbf{p_m}\rangle
                         \end{bmatrix}
     \end{equation}
+    	
     	
     %TALK ABOUT PCA HERE
     %How does the selected material for your project relate to SVD?
