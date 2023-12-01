@@ -13,5 +13,5 @@ semilogy(ax,xAxis,S(:,1),xAxis,S(:,2),xAxis,S(:,3),'LineWidth',2)
 legend(ax,"R-Channel","G-Channel","B-Channel")
 ylabel(ax,"Singular Value Magnitude")
 xlabel(ax,"Singular Value")
-title(ax,sprintf("Singular Values of %s",imName))
+title(ax,sprintf("Singular Value Spectrum of %s",imName))
 
