@@ -30,11 +30,14 @@ thoesens@arizona.edu}}
     PCA was not explicitly covered in ECE 501b but its underlying machinery, the SVD was. An entire lecture was dedicated to covering the SVD, which is an accumulation of many core concepts learned throughout the semester. The SVD employs many linear algebra concepts including inner product spaces, the null space, injectivity and surjectivity, dimensionality, linear independence, bases, orthonormality, linear maps, eigenvalues and eigenvectors, adjoints of linear maps, square roots of linear maps, matrix representations of linear maps, matrix decomposition, diagonal matrices, square matrices, unitary and orthonormal matrices. These concepts will appear throughout this paper and are assumed to be known by means of ECE 501b lectures. External references will therefore not be provided since the implication is that ECE 501b lectures are the references.
 
     \subsection{Motivation}
-    Digital images are signals, or vectors, which means they can be represented in various ways on different bases. Any basis is a collection of linearly independent vectors or functions that completely describe the vector space in which they are defined. Vectors, or signals, can therefore be represented on a basis as a linear combination of the constituent basis vectors. This representation is shown in Equation (ref)
+    Digital images are signals, or vectors, which means they can be represented in various ways on different bases. Any basis is a collection of linearly independent vectors or functions that completely describe the vector space in which they are defined. Vectors, or signals, can therefore be represented on a basis as a linear combination of the constituent basis vectors. This representation is shown in Equation \ref{eq:basisdef}
 
-    % Basis equation here
+    \begin{equation}
+        v = \sum_{i=1}^{n} a_i \mathbf{\phi}_{i}
+    \label{eq:basisdef}
+    \end{equation}
 
-    Where blank is the blah, blah, blah, blank is the.....
+    where $v$ is a vector, $a_i$ is a scalar, $\mathbf{\phi}_{i}$ is a basis vector or basis function, and $n$ is the length of the basis.
 
     Vectors in one basis can be converted to another by means of a linear transformation. Inverse operations also exist. Additionally, where a signal tends to be dense and feature rich in one basis, it is often sparse in another. When a basis is identified such that a sparse representation is possible, content that contains little to no information about the signal can be readily discarded. This leads to the intuition that signals are \textit{compressible}.
 
@@ -50,7 +53,9 @@ thoesens@arizona.edu}}
     \subsection{Singular Value Decomposition}
     The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{F}^{n \times n}$, a unique representation of the form shown in equation (ref eq) exists [ref].
 
-     \begin{equation*}{\mathbf{A}} = {\mathbf{U\Sigma }}{{\mathbf{V}}^{\mathbf{T}}}\tag{2}\end{equation*}
+     \begin{equation}
+     \mathbf{A} = \mathbf{U\Sigma }{\mathbf{V}^\mathbf{T}}
+     \end{equation}
 
     where $\mathbf{A} \in \mathbf{F}^{m \times m}$ and $\mathbf{V} \in \mathbf{F}^{n \times n}$ are square unitary
     matrices whose columns represent the left singular vectors and right singular vectors, respectively, and $\mathbf{\Sigma} \in \mathbf{F}^{m \times n}$ is a matrix of zeros except for the elements of the main diagonal which are called singular values. The singular values of $\mathbf{A}$ are always non-negative and real. When $\mathbf{A}$ is a real matrix, $\mathbf{U}$ and $\mathbf{V}$ are real and thus orthonormal.
@@ -70,18 +75,18 @@ thoesens@arizona.edu}}
     Let $\mathbf{p_i}$ for $i = 1,...,m$ be the columns of $\mathbf{P}$. The vectors $\{\mathbf{p_1},...,\mathbf{p_m}\}$ are the principal components of $\mathbf{X}$. The principle components are orthonormal vectors which maximize sample variance \cite{shlens_2014_tutorial}. Let each column of $\mathbf{X}$ be denoted as $\mathbf{x_j}$ and each column of $\mathbf{Y}$ be denoted as $\mathbf{y_j}$ for $i = 1,...,n$. Each vector $\mathbf{x_j}$ can be written as a linear combination of the basis vectors $\mathbf{p_1},...,\mathbf{p_m}$.
     
     \begin{equation}
-    		\mathbf{x_j} = \langle \mathbf{x_j}, \mathbf{p_1}\rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_j}, \mathbf{p_m}\rangle \mathbf{p_m}
-    	\end{equation}
+        \mathbf{x_j} = \langle \mathbf{x_j}, \mathbf{p_1}\rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_j}, \mathbf{p_m}\rangle \mathbf{p_m}
+    \end{equation}
     	
-    	Each coordinate in $\mathbf{y_j}$ is the scaling applied to the corresponding basis vector.
+    Each coordinate in $\mathbf{y_j}$ is the scaling applied to the corresponding basis vector.
     	
-    	\begin{equation}
-    		\mathbf{y_j} = \begin{bmatrix}
-    			\langle \mathbf{x_j}, \mathbf{p_1} \rangle\\
-    			\vdots \\
-    			\langle \mathbf{x_j}, \mathbf{p_m}\rangle
-    		\end{bmatrix}
-    	\end{equation}
+    \begin{equation}
+        \mathbf{y_j} = \begin{bmatrix}
+                        \langle \mathbf{x_j}, \mathbf{p_1} \rangle\\
+                        \vdots \\
+                        \langle \mathbf{x_j}, \mathbf{p_m}\rangle
+                        \end{bmatrix}
+    \end{equation}
     	
     %TALK ABOUT PCA HERE
     %How does the selected material for your project relate to SVD?
@@ -125,7 +130,7 @@ thoesens@arizona.edu}}
 
     % Add Compression ratio vs R plot
 
-    A qualitative measure 
+    A more qualitative measure of compressed image quality is 
 
     % Add SNR vs R plot
     
