@@ -82,13 +82,14 @@ thoesens@arizona.edu}}
     
     Principle component analysis (PCA) re-expresses samples given in terms of one basis as linear combinations of new basis vectors \cite{shlens_2014_tutorial}. The new basis vectors are the principle components of the data set. They are chosen such the linear combination of basis vectors, used to write each sample, is largely dependent on the first basis vector and less dependent on subsequent basis vectors. This enables each sample of the data set to be approximated using fewer basis vectors. If the correct number of basis vectors are selected to approximate each sample, the data set can be compressed with minimal distortion.
     
-    Denote each of the input sample as $\mathbf{x_i}$ and each of the principle components as $\mathbf{p_j}$, where $\mathbf{x_i}, \mathbf{p_j} \in \mathbf{R}^{m}$. If we constrain our choice of principle components to orthonormal vectors, we can write each of input sample, $\mathbf{x_i}$ as follows:
+    Denote each of the input sample as $\mathbf{x_i}$ and each of the principle components as $\mathbf{p_j}$, where $\mathbf{x_i}, \mathbf{p_j} \in \mathbf{R}^{m}$. If the principle components are constrained to orthonormal vectors, each input sample, $\mathbf{x_i}$ can be written as follows:
     %
     \begin{equation}
     		\mathbf{x_i} = \langle \mathbf{x_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_i}, \mathbf{p_m} \rangle \mathbf{p_m}
+    		\label{eq:linear_combo_orthonormal_vectors}
     	\end{equation}
     	%
-    	Let $\mathbf{y_i}$ be a vector of the weights used to generate each $\mathbf{x_i}$ sample from the principle components.
+    	Let $\mathbf{y_i}$ be a vector of the scalars used to weight each of the principle components in equation (\ref{eq:linear_combo_orthonormal_vectors}). Then $\mathbf{y_i}$ can be written as follows:
     	%
     	\begin{equation}
         \mathbf{y_i} = \begin{bmatrix}
@@ -114,7 +115,7 @@ thoesens@arizona.edu}}
     		\end{bmatrix}
     	\end{equation}
 	%    	
-    	Finally, let $\mathbf{Y} \in \mathbf{F}^{m \times n}$ be the matrix formed by horizonatally concatenating the column vectors $\mathbf{y_i}$.
+    	Finally, let $\mathbf{Y} \in \mathbf{F}^{m \times n}$ be the matrix formed by horizontally concatenating the column vectors $\mathbf{y_i}$.
     	%
     \begin{equation}
     		\mathbf{Y} = \begin{bmatrix}
@@ -122,19 +123,35 @@ thoesens@arizona.edu}}
     		\end{bmatrix}
     	\end{equation}
     	%
-    	Then, the following matrix equation should compute each $\mathbf{y_i}$ vector \cite{shlens_2014_tutorial}:
+    	Then, the following matrix equation will compute each $\mathbf{y_i}$ vector \cite{shlens_2014_tutorial}:
     	%
     	\begin{equation}
     		\mathbf{Y} = \mathbf{P}\mathbf{X}
     	\end{equation}
     	
-    	The principle components should be chosen such that each $\mathbf{y_i}$ has small weights corresponding to each of the final principle components $\mathbf{p_j}$. These weights can then be zeroed to approximate each sample $\mathbf{x_i}$. In other words, each $\mathbf{x_i}$ can be approximated with $\mathbf{\hat{x}_i}$, where
- 	%
- 	\begin{equation}
+    	The principle components should be chosen such that each $\mathbf{y_i}$ can be approximated using a few of its starting elements, while setting the rest set to zero. In other words, the principle components should be chosen such that each $\mathbf{x_i}$ can be approximated by $\mathbf{\hat{x}_i}$, where 
+    	%
+    	\begin{equation}
  		\mathbf{\hat{x}_i} = \langle \mathbf{\hat{x}_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{\hat{x}_i}, \mathbf{p_k} \rangle \mathbf{p_k}
  	\end{equation}   	
     	%
-    	for $k < m$.
+    	for $k < m$. This is equivalent to selecting the first principle component to maximize the variance of $\mathbf{X}$ and selecting each subsequent principle component such that it is orthogonal to the previous principle components and maximizes the variance of $\mathbf{X}$ \cite{shlens_2014_tutorial}.
+    	
+    	The covariance matrix of $Y$ can be used to determine whether these conditions are met. It is defined as:
+	%
+	\begin{equation}
+		\mathbf{C_y} = \frac{1}{n}{\mathbf{YY^T}}
+	\end{equation} 
+	%
+	The principle components should minimize the redundancy of measurements, measured by the covariance (off-diagonal elements) and maximize the signal, measured by the variance (diagonal elements). Furthermore, the variances should be greatest for the first principle component and lower for each subsequent principle component. Therefore, the optimal covariance matrix will be diagonal, with the diagonal elements sorted in descending order \cite{shlens_2014_tutorial}.
+	
+    	%The principle components should be chosen such that each $\mathbf{y_i}$ has small weights corresponding to each of the final principle components $\mathbf{p_j}$. These weights can then be zeroed to approximate each sample $\mathbf{x_i}$. In other words, each $\mathbf{x_i}$ can be approximated with $\mathbf{\hat{x}_i}$, where
+ 	%
+ 	%\begin{equation}
+ 	%	\mathbf{\hat{x}_i} = \langle \mathbf{\hat{x}_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{\hat{x}_i}, \mathbf{p_k} \rangle \mathbf{p_k}
+ 	%\end{equation}   	
+    	%
+    	%for $k < m$.
     	
     %TALK ABOUT PCA HERE
     %How does the selected material for your project relate to SVD?
