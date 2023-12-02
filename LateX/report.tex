@@ -52,17 +52,31 @@ thoesens@arizona.edu}}
     \subsection{Singular Value Decomposition}
     The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{R}^{n \times n}$, a unique representation of the form shown in Equation \ref{eq:svddef} exists.
 
-     \begin{equation}
-     \mathbf{A} = \mathbf{U\Sigma }{\mathbf{V}^\mathbf{T}}
-     \label{eq:svddef}
-     \end{equation}
+    \begin{equation}
+        \mathbf{A} = \mathbf{U\Sigma }{\mathbf{V}^T}
+    \label{eq:svddef}
+    \end{equation}
 
-    where $\mathbf{A} \in \mathbf{R}^{m \times m}$ and $\mathbf{V} \in \mathbf{R}^{n \times n}$ are square unitary
+    where $\mathbf{U} \in \mathbf{R}^{m \times m}$ and $\mathbf{V} \in \mathbf{R}^{n \times n}$ are square unitary
     matrices whose columns represent the left singular vectors and right singular vectors, respectively, and $\mathbf{\Sigma} \in \mathbf{R}^{m \times n}$ is a matrix of zeros except for the elements on the main diagonal which are the singular values. $m$ does not necessarily equal $n$. The singular values of $\mathbf{A}$ are always non-negative and real. When $\mathbf{A}$ is a real matrix, $\mathbf{U}$ and $\mathbf{V}$ are real and therefore orthonormal.
 
     A literal interpretation of the SVD is the action taken by a linear map split into three discrete operations. The first operation performs a rotation of a vector onto an orthonormal basis in the domain of the map. The second operation simultaneously scales the vector and potentially changes dimensionality. The final operation is a rotation onto an orthonormal basis in the co-domain of the map.
 
-    The SVD is a generalized analog of the eigendecomposition of a matrix, which is a result of the Spectral Theorem for certain linear operators, or square matrices. The eigenvectors of a full-rank normal matrix, found through eigendecomposition, form an orthonormal basis on the inner product space of the matrix called an eigenbasis. Thus, any vector in the inner product space can be represented completely and uniquely as an appropriate scaling of the eigenbasis vectors. The vectors of an eigenbasis are also called the modes of the matrix. The magnitude of the eigenvalue associated with each mode determines the relative importance, or significance, of the mode in the composition of the matrix. Modes with higher importance, or larger eigenvalues, contain more pertinent information about the matrix than modes with smaller eigenvalues. Analogously, the right singular vectors of any matrix represent the modes of in the domain and the left singular vectors represent the modes in the co-domain. The magnitudes of the singular values determine the relative joint-importance, or joint-significance, of the associated singular vectors in representing the matrix.
+    The SVD is a generalized analog of the eigendecomposition of a matrix, which is a result of the Spectral Theorem for certain linear operators, or square matrices. The eigenvectors of a full-rank normal matrix, found through eigendecomposition, form an orthonormal basis on the inner product space of the matrix called an eigenbasis. Thus, any vector in the inner product space can be represented completely and uniquely as an appropriate scaling of the eigenbasis vectors. The vectors of an eigenbasis are also called the modes of the matrix. The magnitude of the eigenvalue associated with each mode determines the relative importance, or significance, of the mode in the composition of the matrix. Modes with higher importance, or larger eigenvalues, contain more pertinent information about the matrix than modes with smaller eigenvalues. Analogously, the right singular vectors of any matrix represent the modes of the matrix in the domain and the left singular vectors represent the modes in the co-domain. The magnitudes of the singular values determine the relative joint-importance, or joint-significance, of the associated left and right singular vectors in representing the matrix.
+
+    Computing the SVD of a matrix $\mathbf{A}$ involves computing the eigendecomposition of both the row-wise autocorrelation matrix, $\mathbf{AA}^T$, and the column-wise autocorrelation matrix, $\mathbf{A}^T\mathbf{A}$. Both autocorrelation matrices are at least positive semi-definite which means unique eigendecompostions exist. Both decompositions are defined according to Equations \ref{eq:aatranspose} and \ref{eq:atransposea}
+
+    \begin{equation}
+         \mathbf{AA}^{T} = \mathbf{U\Lambda}\mathbf{U}^T
+    \label{eq:aatranspose}
+    \end{equation}
+
+    \begin{equation}
+         \mathbf{A}^T\mathbf{A} = \mathbf{V\Delta}\mathbf{V}^T
+    \label{eq:atransposea}
+    \end{equation}
+    
+    where $\mathbf{\Lambda} \in \mathbf{R}^{m \times m}$ is a diagonal matrix containing the eigenvalues of $\mathbf{AA}^{T}$, and $\mathbf{\Delta} \in \mathbf{R}^{n \times n}$ is a diagonal matrix containing the eigenvalues of $\mathbf{A}^T\mathbf{A}$. The non-zero elements of $\mathbf{\Lambda}$ are the same as the non-zero elements of $\mathbf{\Delta}$ and are equal to the squares of the singular values of $\mathbf{A}$. These eigenvalues are positive and real since the non-zero singular values are real.
     
     \subsection{Principle Component Analysis} \label{pca_section}
     
