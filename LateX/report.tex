@@ -50,15 +50,15 @@ thoesens@arizona.edu}}
     SVD-, or PCA-, representation is a basis that is learned from the data itself. The basis vectors come from the structure of the signal and consequently form a more efficient representation. As will be shown in the Results section of this paper, this representation is also compact.
     
     \subsection{Singular Value Decomposition}
-    The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{F}^{n \times n}$, a unique representation of the form shown in Equation \ref{eq:svddef} exists.
+    The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{R}^{n \times n}$, a unique representation of the form shown in Equation \ref{eq:svddef} exists.
 
      \begin{equation}
      \mathbf{A} = \mathbf{U\Sigma }{\mathbf{V}^\mathbf{T}}
      \label{eq:svddef}
      \end{equation}
 
-    where $\mathbf{A} \in \mathbf{F}^{m \times m}$ and $\mathbf{V} \in \mathbf{F}^{n \times n}$ are square unitary
-    matrices whose columns represent the left singular vectors and right singular vectors, respectively, and $\mathbf{\Sigma} \in \mathbf{F}^{m \times n}$ is a matrix of zeros except for the elements on the main diagonal which are the singular values. $m$ does not necessarily equal $n$. The singular values of $\mathbf{A}$ are always non-negative and real. When $\mathbf{A}$ is a real matrix, $\mathbf{U}$ and $\mathbf{V}$ are real and therefore orthonormal.
+    where $\mathbf{A} \in \mathbf{R}^{m \times m}$ and $\mathbf{V} \in \mathbf{R}^{n \times n}$ are square unitary
+    matrices whose columns represent the left singular vectors and right singular vectors, respectively, and $\mathbf{\Sigma} \in \mathbf{R}^{m \times n}$ is a matrix of zeros except for the elements on the main diagonal which are the singular values. $m$ does not necessarily equal $n$. The singular values of $\mathbf{A}$ are always non-negative and real. When $\mathbf{A}$ is a real matrix, $\mathbf{U}$ and $\mathbf{V}$ are real and therefore orthonormal.
 
     A literal interpretation of the SVD is the action taken by a linear map split into three discrete operations. The first operation performs a rotation of a vector onto an orthonormal basis in the domain of the map. The second operation simultaneously scales the vector and potentially changes dimensionality. The final operation is a rotation onto an orthonormal basis in the co-domain of the map.
 
@@ -68,7 +68,7 @@ thoesens@arizona.edu}}
     
     Principle component analysis (PCA) re-expresses samples given in terms of one basis as linear combinations of new basis vectors \cite{shlens_2014_tutorial}. The new basis vectors are the principle components of the data set. They are chosen such the linear combination of basis vectors, used to write each sample, is largely dependent on the first basis vector and less dependent on subsequent basis vectors. This enables each sample of the data set to be approximated using fewer basis vectors. If the correct number of basis vectors are selected to approximate each sample, the data set can be compressed with minimal distortion.
     
-    Denote each of the input sample as $\mathbf{x_i}$ and each of the principle components as $\mathbf{p_j}$, where $\mathbf{x_i}, \mathbf{p_j} \in \mathbf{F}^{m}$. If we constrain our choice of principle components to orthonormal vectors, we can write each of input sample, $\mathbf{x_i}$ as follows:
+    Denote each of the input sample as $\mathbf{x_i}$ and each of the principle components as $\mathbf{p_j}$, where $\mathbf{x_i}, \mathbf{p_j} \in \mathbf{R}^{m}$. If we constrain our choice of principle components to orthonormal vectors, we can write each of input sample, $\mathbf{x_i}$ as follows:
     %
     \begin{equation}
     		\mathbf{x_i} = \langle \mathbf{x_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_i}, \mathbf{p_m} \rangle \mathbf{p_m}
@@ -84,7 +84,7 @@ thoesens@arizona.edu}}
                         \end{bmatrix}
     \end{equation}
     
-    	Each $\mathbf{y_i}$ vector can be computed with a matrix equation. Let $\mathbf{X} \in \mathbf{F}^{m \times n}$ be the matrix formed by concatenating each sample $\mathbf{x_i}$.
+    	Each $\mathbf{y_i}$ vector can be computed with a matrix equation. Let $\mathbf{X} \in \mathbf{R}^{m \times n}$ be the matrix formed by horizontally concatenating the column vectors $\mathbf{x_i}$.
     %
     \begin{equation}
     		\mathbf{X} = \begin{bmatrix}
@@ -92,10 +92,26 @@ thoesens@arizona.edu}}
     		\end{bmatrix}
     	\end{equation}
     	%
-    	Similary, let $\mathbf{P} \in \mathbf{F}^{m \times m}$ be the matrix formed by concatentating the principle components $\mathbf{p_j}$ and $\mathbf{Y} \in \mathbf{F}^{m \times n}$ be the matrix formed by concatenating the resulting weight vectors $\mathbf{y_i}$. Then, the following matrix equation should compute each $\mathbf{y_i}$ vector:
+    	Similary, let $\mathbf{P} \in \mathbf{F}^{m \times m}$ be the matrix formed by vertically concatentating the row vectors $\mathbf{p_j}$.
+	%
+	\begin{equation}
+    		\mathbf{P} = \begin{bmatrix}
+    			\mathbf{p_1} \\ \mathbf{p_2} \\ \vdots \\ \mathbf{p_m}
+    		\end{bmatrix}
+    	\end{equation}
+	%    	
+    	Finally, let $\mathbf{Y} \in \mathbf{F}^{m \times n}$ be the matrix formed by horizonatally concatenating the column vectors $\mathbf{y_i}$.
+    	%
+    \begin{equation}
+    		\mathbf{Y} = \begin{bmatrix}
+    			\mathbf{y_1} & \mathbf{y_2} & \cdots & \mathbf{y_n}
+    		\end{bmatrix}
+    	\end{equation}
+    	%
+    	Then, the following matrix equation should compute each $\mathbf{y_i}$ vector \cite{shlens_2014_tutorial}:
     	%
     	\begin{equation}
-    		\mathbf{Y} = \mathbf{P^{H}}\mathbf{X}
+    		\mathbf{Y} = \mathbf{P}\mathbf{X}
     	\end{equation}
     	
     	The principle components should be chosen such that each $\mathbf{y_i}$ has small weights corresponding to each of the final principle components $\mathbf{p_j}$. These weights can then be zeroed to approximate each sample $\mathbf{x_i}$. In other words, each $\mathbf{x_i}$ can be approximated with $\mathbf{\hat{x}_i}$, where
