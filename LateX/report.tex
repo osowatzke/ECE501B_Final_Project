@@ -166,13 +166,8 @@ thoesens@arizona.edu}}
 	\end{equation*}
 	%
 	Then, $\mathbf{AA^T} = \mathbf{C_X}$. Referring to Equation (\ref{eq:aatranspose}), the eigenvectors of $\mathbf{AA^T}$ are equivalent to the columns of $\mathbf{U}$. Furthermore, scaling the matrix $\mathbf{X}$ by $1/\sqrt{n}$ only scales the eigenvalues, $\Lambda$, but does not change the eigenvectors, $\mathbf{U}$. Therefore, an SVD can be performed directly $\mathbf{X}$ and the columns of the resulting $\mathbf{U}$ matrix will be the principle components.
-    	%The principle components should be chosen such that each $\mathbf{y_i}$ has small weights corresponding to each of the final principle components $\mathbf{p_j}$. These weights can then be zeroed to approximate each sample $\mathbf{x_i}$. In other words, each $\mathbf{x_i}$ can be approximated with $\mathbf{\hat{x}_i}$, where
- 	%
- 	%\begin{equation}
- 	%	\mathbf{\hat{x}_i} = \langle \mathbf{\hat{x}_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{\hat{x}_i}, \mathbf{p_k} \rangle \mathbf{p_k}
- 	%\end{equation}   	
-    	%
-    	%for $k < m$.
+    
+    \subsection{Image Compression Using PCA}
     	
     %TALK ABOUT PCA HERE
     %How does the selected material for your project relate to SVD?
