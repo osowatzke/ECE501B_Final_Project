@@ -162,7 +162,7 @@ thoesens@arizona.edu}}
     The compression technique described in Section \ref{pca_section} is implemented in Matlab. The Matlab built-in image 'wagon.jpg' is used throughout this section as an example for both qualitative and quantitative analysis of the compression scheme. Qualitative analysis is performed through visual inspection of image quality after compression. Quantitative analysis is performed by examining the peak signal-to-noise ratio (PSNR) of the compressed image, compared to the original, uncompressed image.
 
     \subsection{Data}
-    Talk about image properties here, including size and format.
+    The Matlab built-in image 'wagon.jpg' is an 8-bit 1024x768 RGB image, which contains three channels of red, green, and blue color data. The total uncompressed image size is 2,359,296 Bytes, or 2.25 MB.
 
     \subsection{Design}
     Describe what the Matlab code is doing here.
@@ -220,9 +220,14 @@ thoesens@arizona.edu}}
 
     %Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
 
-
     \section{Conclusion}
+
+    In this paper we were able to show that the SVD and concepts from PCA could be implemented from scratch and used to solve the problem of image compression. A qualitative analysis by visual inspection and quantitative analysis using PSNR showed that an image can be compressed by a factor of 1.92 to 3.84 without a perceptive loss of quality. Compression is achieved by preserving the first 200-400 modes, or principle components, out of a total of 768. The PSNR of the compressed image ranges from 27dB to 34dB which is comparable to a high quality reconstruction. The implemented process and results are in agreement with the chief material in \cite{jaradet_svd_image_compression}.
     
+    Future work would involve modifying the example to perform compression on the YCbCr color space as described in \cite{xu_color_conversion}. Where the singular value spectrum of an RGB image has the same shape for all three channels, the spectra for chrominance channels are more compact than that of the luminance channel. This leads to the possibility that further compression can be achieved by using less Cb and Cr modes than Y modes.
+
+    This project was an exercise in understanding the intricacies of the SVD and PCA. Understanding these concepts requires a deep understanding of most of the topics covered in ECE 501b. By choosing this topic, one is forced to review all the fundamentals that are taught in class.
+
     %Provide a summary and conclusion section in the report. How well did your example correlate or explain the concepts in the selected material? How would you modify your example to make it better? How did your selected project enhance your understanding of ECE 501b material?
 
     \nocite{jaradet_svd_image_compression}
