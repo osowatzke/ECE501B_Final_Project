@@ -145,6 +145,20 @@ thoesens@arizona.edu}}
 	%
 	The principle components should minimize the redundancy of measurements, measured by the covariance (off-diagonal elements) and maximize the signal, measured by the variance (diagonal elements). Furthermore, the variances should be greatest for the first principle component and lower for each subsequent principle component. Therefore, the optimal covariance matrix will be diagonal, with the diagonal elements sorted in descending order \cite{shlens_2014_tutorial}.
 	
+	The principle components can be computed to provide the optimal covariance matrix. The covariance matrix can be rewritten as
+	%
+	\begin{equation}
+		\mathbf{\mathbf{C_Y}} = {\mathbf{PC_XP^T}}
+	\end{equation}
+	%
+	where $\mathbf{C_X}$ is the covariance matrix of $\mathbf{X}$ \cite{shlens_2014_tutorial}. If an eigen-decomposition of $\mathbf{C_X}$ is performed, the result will be
+	%
+	\begin{equation}
+		\mathbf{C_X} = \mathbf{EDE^T}
+	\end{equation}
+	%
+	where $\mathbf{E}$ is a matrix with columns that are the eigenvectors of $\mathbf{C_X}$ and $\mathbf{D}$ is a diagonal matrix with the eigenvalues of $\mathbf{C_X}$ on the diagonal. If $\mathbf{P} = \mathbf{E^{-1}} = \mathbf{E^T}$, the resulting covariance matrix $\mathbf{C_Y}$ will be diagonal and equivalent to $\mathbf{D}$. Therefore, the principle components should be the eigenvectors of $\mathbf{C_X}$, sorted based on their corresponding eigenvalues. I.e. \newline $\mathbf{p_1} = \mathbf{e_1}, ..., \mathbf{p_n} = \mathbf{e_n}$ for $\lambda_1 > \cdots > \lambda_n$. 
+	
     	%The principle components should be chosen such that each $\mathbf{y_i}$ has small weights corresponding to each of the final principle components $\mathbf{p_j}$. These weights can then be zeroed to approximate each sample $\mathbf{x_i}$. In other words, each $\mathbf{x_i}$ can be approximated with $\mathbf{\hat{x}_i}$, where
  	%
  	%\begin{equation}
