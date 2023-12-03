@@ -159,6 +159,13 @@ thoesens@arizona.edu}}
 	%
 	where $\mathbf{E}$ is a matrix with columns that are the eigenvectors of $\mathbf{C_X}$ and $\mathbf{D}$ is a diagonal matrix with the eigenvalues of $\mathbf{C_X}$ on the diagonal. If $\mathbf{P} = \mathbf{E^{-1}} = \mathbf{E^T}$, the resulting covariance matrix $\mathbf{C_Y}$ will be diagonal and equivalent to $\mathbf{D}$. Therefore, the principle components should be the eigenvectors of $\mathbf{C_X}$, sorted based on their corresponding eigenvalues. I.e. \newline $\mathbf{p_1} = \mathbf{e_1}, ..., \mathbf{p_n} = \mathbf{e_n}$ for $\lambda_1 > \cdots > \lambda_n$. 
 	
+	SVD can also be used to find the principle components. Start by defining $\mathbf{A}$ such that
+	%
+	\begin{equation*}
+		\mathbf{A} = \frac{1}{\sqrt{n}}\mathbf{X}
+	\end{equation*}
+	%
+	Then, $\mathbf{AA^T} = \mathbf{C_X}$. Referring to Equation (\ref{eq:aatranspose}), the eigenvectors of $\mathbf{AA^T}$ are equivalent to the columns of $\mathbf{U}$. Furthermore, scaling the matrix $\mathbf{X}$ by $1/\sqrt{n}$ only scales the eigenvalues, $\Lambda$, but does not change the eigenvectors, $\mathbf{U}$. Therefore, an SVD can be performed directly $\mathbf{X}$ and the columns of the resulting $\mathbf{U}$ matrix will be the principle components.
     	%The principle components should be chosen such that each $\mathbf{y_i}$ has small weights corresponding to each of the final principle components $\mathbf{p_j}$. These weights can then be zeroed to approximate each sample $\mathbf{x_i}$. In other words, each $\mathbf{x_i}$ can be approximated with $\mathbf{\hat{x}_i}$, where
  	%
  	%\begin{equation}
