@@ -169,6 +169,65 @@ thoesens@arizona.edu}}
     
     \subsection{Image Compression Using PCA}
     	
+    	PCA can be used for image compression. Consider an grayscale image, which is a $m \times n$ matrix. 
+    	%
+    	\begin{equation}
+    		\mathbf{X} = \begin{bmatrix}
+    			x_{11} & x_{12} & \cdots & x_{1n} \\
+    			x_{21} & x_{22} & \cdots & x_{2n} \\
+    			\vdots & \vdots & \ddots & \vdots \\
+    			x_{m1} & x_{m2} & \cdots & x_{mn}
+    		\end{bmatrix}    			
+    	\end{equation}
+    	%
+    	Each column of the above matrix can be treated as an input sample. PCA then attempts to find a better basis for each of these samples. As described above, the principles components are the columns of the $\mathbf{U}$ matrix that results from a SVD of the matrix $\mathbf{X}$.
+	
+	For $m < n$, the SVD output can be expanded as follows:
+	
+	\begin{equation}
+		\begin{bmatrix}
+			\mathbf{u_1} & \cdots & \mathbf{u_m}
+		\end{bmatrix}\begin{bmatrix}
+			\sigma_1 & 0 & \cdots & 0 & 0 & \cdots & 0\\
+			0 & \sigma_2 & \cdots & 0 & 0 & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & \cdots & \sigma_m & 0 & \cdots & 0\\		
+		\end{bmatrix}\begin{bmatrix}
+			\mathbf{v_{1}^{T}}\\
+			\vdots\\
+			\mathbf{v_{n}^{T}}
+		\end{bmatrix}		
+	\end{equation}
+	%
+	where $\mathbf{u_i}$ are columns vectors of the $\mathbf{U}$ matrix, $\sigma_j$ are the singular values on the diagonal of the $\mathbf{\Sigma}$ matrix, and $\mathbf{v_k}$ are the column vectors of the $\mathbf{V}$ matrix.
+	  
+	Multiplying $\mathbf{\Sigma}$ with $\mathbf{V^T}$, the SVD output can be rewritten as follows:
+	%
+	\begin{equation}
+		\begin{bmatrix}
+			\mathbf{u_1} & \cdots & \mathbf{u_m}
+		\end{bmatrix}\begin{bmatrix}
+			\sigma_1v_{11} & \sigma_1v_{21} & \cdots & \sigma_1v_{n1}\\
+			\sigma_2v_{12} & \sigma_1v_{22} & \cdots & \sigma_2v_{n2}\\
+			\vdots & \vdots & \ddots & \vdots\\
+			\sigma_mv_{1m} & \sigma_mv_{2m} & \cdots & \sigma_mv_{nm}
+		\end{bmatrix}
+	\end{equation}
+	%
+    	where $v_{ij}$ is the element of $\mathbf{V}$ in the ith column and jth row.
+    	
+    	The ith column of $\mathbf{X}$ matrix or the sample $\mathbf{x_i}$ can be written as follows:
+	%
+	\begin{equation*}
+		\mathbf{x_i} = \sigma_1v_{i1}\mathbf{u_1} + \cdots \sigma_mv_{im}\mathbf{u_m}
+	\end{equation*}   	
+    	%
+    	Recognizing that each $\mathbf{u_j}$ term is the principle component $\mathbf{p_j}$, the scalars $\sigma_jv_{ij}$ are the inner products $\langle \mathbf{x_i}, \mathbf{p_j}\rangle$. Therefore, the remaining SVD outputs, $\mathbf{\Sigma}$ and $\mathbf{V}$, can be used along with $\mathbf{U}$ to recreate each sample or column of the original image.  
+    	
+    	To perform compression, recognize that less important principle components can be discarded without significantly distorting the image.  Assume $r < m$ of the principle components are kept, and the rest are discarded. This is equivalent to keeping the first $r$ columns of the $\mathbf{U}$ matrix, the first $r$ rows and first $r$ columns of the $\mathbf{\Sigma}$ matrix, and the first $r$ columns of the $\mathbf{V}$ matrix. Because $\mathbf{\Sigma}$ is diagonal, storage can be further optimized by keep just the first $r$ diagonal elements of $\mathbf{\Sigma}$.
+    	
+    	Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{U} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\sigma} \in \mathbf{R}^{r}$, and a matrix $\mathbf{V} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\Sigma}$ using the vector $\mathbf{\sigma}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by $\mathbf{\hat{X}} = \mathbf{U{\Sigma}V^T}$.
+    	  
     %TALK ABOUT PCA HERE
     %How does the selected material for your project relate to SVD?
     %Theory of compression using PCA
