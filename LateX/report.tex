@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{cite}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{ {./}{./images/} }
 
 \title{PCA-Based Image Compression}
@@ -128,6 +129,12 @@ thoesens@arizona.edu}}
     	\begin{equation}
     		\mathbf{Y} = \mathbf{P}\mathbf{X}
     	\end{equation}
+
+    \begin{figure}[H]
+        \includegraphics[width=0.5\textwidth]{svals_wagon_rgb}
+        \caption{Singular Value Spectrum of wagon.jpg. The SVD is computed separately for the red (R), green (G), and blue (B) channels}
+        \label{fig:svalplot}
+    \end{figure}
     	
     	The principle components should be chosen such that each $\mathbf{y_i}$ can be approximated using a few of its starting elements, while setting the rest set to zero. In other words, the principle components should be chosen such that each $\mathbf{x_i}$ can be approximated by $\mathbf{\hat{x}_i}$, where 
     	%
@@ -157,6 +164,13 @@ thoesens@arizona.edu}}
 		\mathbf{C_X} = \mathbf{EDE^T}
 	\end{equation}
 	%
+
+    \begin{figure}[t]
+        \includegraphics[width=0.5\textwidth]{sv_energy_wagon_rgb}
+        \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the red (R), green (G), and blue (B) channels}
+        \label{fig:svalenergyplot}
+    \end{figure}
+    
 	where $\mathbf{E}$ is a matrix with columns that are the eigenvectors of $\mathbf{C_X}$ and $\mathbf{D}$ is a diagonal matrix with the eigenvalues of $\mathbf{C_X}$ on the diagonal. If $\mathbf{P} = \mathbf{E^{-1}} = \mathbf{E^T}$, the resulting covariance matrix $\mathbf{C_Y}$ will be diagonal and equivalent to $\mathbf{D}$. Therefore, the principle components should be the eigenvectors of $\mathbf{C_X}$, sorted based on their corresponding eigenvalues. I.e. \newline $\mathbf{p_1} = \mathbf{e_1}, ..., \mathbf{p_n} = \mathbf{e_n}$ for $\lambda_1 > \cdots > \lambda_n$. 
 	
 	SVD can also be used to find the principle components. Start by defining $\mathbf{A}$ such that
@@ -180,6 +194,12 @@ thoesens@arizona.edu}}
     \subsection{Data}
     The Matlab built-in image 'wagon.jpg' is an 8-bit 1024x768 RGB image that contains three channels of red, green, and blue color data. The total uncompressed image size is 2,359,296 Bytes, or 2.25 MB.
 
+    \begin{figure}[t]
+        \includegraphics[width=0.5\textwidth]{show_different_r_wagon}
+        \caption{Wagon wheel image using various numbers of representative modes}
+        \label{fig:showwagondiffr}
+    \end{figure}
+
     \subsection{Design}
     The compression engine works in four main steps, repeated for each of three color channels. The first step converts the image matrix of size $m \times n$ to a double precision floating point representation. The second step computes the mean value of the entire matrix and subtracts it from each element. The third step implements Matlab's built-in SVD function to calculate the $\mathbf{U}$, $\mathbf{\Sigma}$, and$\mathbf{V}$ matrices. The fourth step involves truncating the SVD by storing the first $r$ columns of the $\mathbf{U}$ and $\mathbf{V}$ matrices and the first $r$ elements of the trace of the $\mathbf{\Sigma}$ matrix. The matrix mean value is also stored.
 
@@ -191,23 +211,23 @@ thoesens@arizona.edu}}
     \end{equation}
 
     where $\mathbf{\hat{U}}$ is the truncated $\mathbf{U}$ matrix, $\mathbf{\hat{V}}$ is the truncated $\mathbf{V}$ matrix, $\bar{m}$ is the stored mean value, and $\mathbf{\hat{\Sigma}}$ is constructed by creating a $m \times r$ zeros matrix and placing the trace of $\mathbf{\Sigma}$ on the diagonal.
+
+    \begin{figure}[t]
+        \includegraphics[width=0.5\textwidth]{snrvsr_wagon_rgb}
+        \caption{Peak signal-to-noise ratio versus total number of modes}
+        \label{fig:psnrvsr_wagon}
+    \end{figure}
+
+    \begin{figure}[h]
+    \includegraphics[width=0.5\textwidth]{comprVsModes_rgb}
+    \caption{Compression ratio versus total number of modes}
+    \label{fig:comprvsr}
+    \end{figure}
     
     \subsection{Analysis}
     As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its modes. The relative importance, or significance, of a mode is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective modes.
 
-    \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{svals_wagon_rgb}
-    \caption{Singular Value Spectrum of wagon.jpg. The SVD is computed separately for the red (R), green (G), and blue (B) channels}
-    \label{fig:svalplot}
-    \end{figure}
-    
     Shown in Figure \ref{fig:svalplot} is a plot of the singular values, also called the singular value spectrum, of the image wagon.jpg. Of particular note is the low number of large singular values, approximately 100-200, compared to the total of 768. This concentration of large singular values suggests the majority of the modes contain little relevant information about the image. Thus, removing these unimportant modes should agree with the intuition that images can be reduced in size while preserving the majority of the information content. Since the image is completely defined by the combination of all modes, the sum total of the singular values can be seen as a reasonable analog for the total information, or energy, contained in the image. Figure \ref{fig:svalenergyplot} shows the accumulation of energy as the number of modes representing the image increases from most to least significant. For example, to represent 80\% of the content of the image, the first 300 modes are needed.
-
-    \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{show_different_r_wagon}
-    \caption{Wagon wheel image using various numbers of representative modes}
-    \label{fig:showwagondiffr}
-    \end{figure}
 
     The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but distortion appears to fade as the number of modes reaches 200-400. According to the cumulative energy plot in Figure \ref{fig:svalenergyplot}, this level of compression retains 68\% to 88\% of the information content of the image. A more quantitative measure of compressed image quality is peak signal-to-noise ratio (PSNR), defined in Equation \ref{eq:psnr}
 
@@ -219,31 +239,13 @@ thoesens@arizona.edu}}
     where $peakval$ is the maximum representable value of the image's datatype - 8-bit integers in this example - and $MSE$ is the mean squared error between the compressed image and original, uncompressed image.
 
     Figure \ref{fig:psnrvsr_wagon} shows a plot of PSNR versus number of modes representing the wagon image. PSNR rises rapidly for the first few modes, then steadily for the total number of modes ranging from ~100 to ~550, then rapidly again as the decompressed image approaches the true image in value. Theoretical PSNR for a perfect reconstruction is infinity but that unlikely to be achieved due to quantization error. According to \cite{psnr_quality} typical PSNR values for a high quality lossy reconstruction of an 8-bit image are 30-50dB. This agrees with our quantitative result which shows a PSNR range of 27-34dB for 200-400 modes, as well as our qualitative result which shows virtually no difference between a 200-400 mode image and the original.
-
-    \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{sv_energy_wagon_rgb}
-    \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the red (R), green (G), and blue (B) channels}
-    \label{fig:svalenergyplot}
-    \end{figure}
-
-    \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{snrvsr_wagon_rgb}
-    \caption{Peak signal-to-noise ratio versus total number of modes}
-    \label{fig:psnrvsr_wagon}
-    \end{figure}
     
     Retaining the first 200-400 modes would suggest, from a subjective perspective, that the image can be reduced in size by a factor of 1.92 to 3.84. According to the plot in Figure \ref{fig:comprvsr}, the computed compression ratio for 100-200 modes is indeed between 1.92 and 3.84. This direct relationship suggests compression ratio is simply a function of number of modes.
-
-    \begin{figure}[t]
-    \includegraphics[width=0.5\textwidth]{comprVsModes_rgb}
-    \caption{Compression ratio versus total number of modes}
-    \label{fig:comprvsr}
-    \end{figure}
 
     % Add comments about the differences between the Y and Cb/Cr curves?
 
     %Using the 25,000,000,000 Eigenvector paper as a guide, develop some exercises, questions, analysis, or examples that were inspired or motivated by your project. For example, what assumptions were made in your project material? What if certain assumptions are neglected or do not exist? Can you provide analysis that supplements the analysis in the selected project material Or, can you provide analysis that extends the analysis in the project material You might also develop numerical examples that help to provide insight into the ideas discussed in the selected material or that demonstrate the application of the theory in your project. The example you create might consist of a MATLAB simulation or MATLAB analysis.
-
+    \newpage
     \section{Conclusion}
 
     In this paper we were able to show that the SVD and concepts from PCA could be implemented from scratch and used to solve the problem of image compression. A qualitative analysis by visual inspection and quantitative analysis using PSNR showed that an image can be compressed by a factor of 1.92 to 3.84 without a perceptive loss of quality. Compression is achieved by preserving the first 200-400 modes, or principle components, out of a total of 768. The PSNR of the compressed image ranges from 27dB to 34dB which is comparable to a high quality reconstruction. The implemented process and results are in agreement with the chief material in \cite{jaradet_svd_image_compression}.
