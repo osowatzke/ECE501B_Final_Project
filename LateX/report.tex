@@ -241,6 +241,22 @@ thoesens@arizona.edu}}
         \mathbf{\hat{X}} = \mathbf{\hat{U}{\hat{\Sigma}}\hat{V}^T}
     \label{eq:imgrecon}
     \end{equation}
+
+    \subsection{Compressibility Upper Bound}
+
+    When expressed canonically a color image contains exactly $m \times n \times 3$ elements. When expressed under SVD the same image contains at minimum $(m+n)\times 3$ elements, and at most $(m^2 + m\times n) \times 3$ elements, assuming $m<n$. In general, the SVD of an image contains $r\times (m + n) \times 3$ elements. It is clear from these expressions that an upper bound exists on $r$, and exceeding this bound will result in an image that is larger than the original. The ratio between the number of elements in the canonical form of the image and the number of elements in the SVD of the compressed image must satisfy the inequality in Equation \ref{eq:compressionineq}
+
+    \begin{equation}
+        \frac{m\times n}{r\times (m + n)}>1
+    \label{eq:compressionineq}
+    \end{equation}
+
+    Therefore, the upper bound on $r$ is
+
+    \begin{equation}
+        r < \frac{m\times n}{(m + n)}
+    \end{equation}
+    
     \section{Results}
 
     The compression technique described in Section \ref{pca_section} is implemented in Matlab. The Matlab built-in image 'wagon.jpg' is used throughout this section as an example for both qualitative and quantitative analysis of the compression scheme. Qualitative analysis is performed through visual inspection of image quality after compression. Quantitative analysis is performed by examining the peak signal-to-noise ratio (PSNR) of the compressed image, compared to the original, uncompressed image.
@@ -299,7 +315,7 @@ thoesens@arizona.edu}}
     \label{fig:comprvsr}
     \end{figure}
     
-    Retaining the first 200-400 modes would suggest, from a subjective perspective, that the image can be reduced in size by a factor of 1.92 to 3.84. According to the plot in Figure \ref{fig:comprvsr}, the computed compression ratio for 100-200 modes is indeed between 1.92 and 3.84. This direct relationship suggests compression ratio is simply a function of number of modes.
+    Retaining the first 200-400 modes out of 768 would suggest, at first glance, that the image can be reduced in size by a factor of 1.92 to 3.84. According to the plot in Figure \ref{fig:comprvsr}, the actual compression ratio for 200-400 modes is between 1.05 and 1.99. Further reducing the number of modes would increase distortion effects but compression would improve significantly.
 
     % Add comments about the differences between the Y and Cb/Cr curves?
 
