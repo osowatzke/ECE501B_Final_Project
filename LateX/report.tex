@@ -45,7 +45,7 @@ thoesens@arizona.edu}}
         v = \sum_{i=1}^{n} a_i \mathbf{\phi}_{i}
     \label{eq:basisdef}
     \end{equation}
-
+        %
     where $v$ is a vector, $a_i$ is a scalar, $\mathbf{\phi}_{i}$ is a basis vector or function, and $n$ is the length of the basis list.
 
     Vectors in one basis can be converted to another by means of a linear transformation. Inverse operations also exist. Additionally, where a signal tends to be dense and feature rich in one basis, it is often sparse or compact in another. When a basis is identified such that a sparse or compact representation is possible, content that contains little to no information about the signal can be readily discarded. This leads to the intuition that signals are \textit{compressible}. Additionally, when the basis of a signal is known, only the coefficients need to be preserved.
@@ -65,7 +65,7 @@ thoesens@arizona.edu}}
         \mathbf{A} = \mathbf{U\Sigma }{\mathbf{V}^T}
     \label{eq:svddef}
     \end{equation}
-
+        %
     where $\mathbf{U} \in \mathbf{R}^{m \times m}$ and $\mathbf{V} \in \mathbf{R}^{n \times n}$ are square unitary
     matrices whose columns represent the left singular vectors and right singular vectors, respectively, and $\mathbf{\Sigma} \in \mathbf{R}^{m \times n}$ is a matrix of zeros except for the elements on the main diagonal which are the singular values. $m$ does not necessarily equal $n$. The singular values of $\mathbf{A}$ are always non-negative and real. When $\mathbf{A}$ is a real matrix, $\mathbf{U}$ and $\mathbf{V}$ are real and therefore orthonormal.
 
@@ -84,7 +84,7 @@ thoesens@arizona.edu}}
          \mathbf{A}^T\mathbf{A} = \mathbf{V\Delta}\mathbf{V}^T
     \label{eq:atransposea}
     \end{equation}
-    
+        %
     where $\mathbf{\Lambda} \in \mathbf{R}^{m \times m}$ is a diagonal matrix containing the eigenvalues of $\mathbf{AA}^{T}$, and $\mathbf{\Delta} \in \mathbf{R}^{n \times n}$ is a diagonal matrix containing the eigenvalues of $\mathbf{A}^T\mathbf{A}$. The non-zero elements of $\mathbf{\Lambda}$ are the same as the non-zero elements of $\mathbf{\Delta}$ and are equal to the squares of the singular values of $\mathbf{A}$. These eigenvalues are positive and real since the non-zero singular values are real.
     
     \subsection{Principle Component Analysis}
@@ -266,6 +266,18 @@ thoesens@arizona.edu}}
     \subsection{Data}
     The Matlab built-in image 'wagon.jpg' is an 8-bit 1024x768 RGB image that contains three channels of red, green, and blue color data. The total uncompressed image size is 2,359,296 Bytes, or 2.25 MB.
 
+    \begin{figure}[H]
+        \includegraphics[width=0.5\textwidth]{svals_wagon_rgb}
+        \caption{Singular Value Spectrum of wagon.jpg. The SVD is computed separately for the red (R), green (G), and blue (B) channels}
+        \label{fig:svalplot}
+    \end{figure}
+
+    \begin{figure}[H]
+        \includegraphics[width=0.5\textwidth]{sv_energy_wagon_rgb}
+        \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the red (R), green (G), and blue (B) channels}
+        \label{fig:svalenergyplot}
+    \end{figure}
+    
     \subsection{Design}
     The compression engine works in four main steps, repeated for each of three color channels. The first step converts the image matrix of size $m \times n$ to a double precision floating point representation. The second step computes the mean value of the entire matrix and subtracts it from each element. The third step implements Matlab's built-in SVD function to calculate the $\mathbf{U}$, $\mathbf{\Sigma}$, and $\mathbf{V}$ matrices. The fourth step involves truncating the SVD by storing the first $r$ columns of the $\mathbf{U}$ and $\mathbf{V}$ matrices and the first $r$ elements of the main diagonal of the $\mathbf{\Sigma}$ matrix. The matrix mean value is also stored.
 
@@ -273,18 +285,6 @@ thoesens@arizona.edu}}
     
     \subsection{Analysis}
     As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its modes. The relative importance, or significance, of a mode is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective modes.
-
-	 \begin{figure}[t]
-        \includegraphics[width=0.5\textwidth]{svals_wagon_rgb}
-        \caption{Singular Value Spectrum of wagon.jpg. The SVD is computed separately for the red (R), green (G), and blue (B) channels}
-        \label{fig:svalplot}
-    \end{figure}
-    
-	\begin{figure}[t]
-        \includegraphics[width=0.5\textwidth]{sv_energy_wagon_rgb}
-        \caption{Plot showing the cumulative energy of the singular values of wagon.jpg. Cumulative energy is computed separately for the red (R), green (G), and blue (B) channels}
-        \label{fig:svalenergyplot}
-    \end{figure}
     
     \begin{figure}[t]
         \includegraphics[width=0.5\textwidth]{show_different_r_wagon}
@@ -292,15 +292,15 @@ thoesens@arizona.edu}}
         \label{fig:showwagondiffr}
     \end{figure}
     
-    Shown in Figure \ref{fig:svalplot} is a plot of the singular values, also called the singular value spectrum, of the image wagon.jpg. Of particular note is the low number of large singular values, approximately 100-200, compared to the total of 768. This concentration of large singular values suggests the majority of the modes contain little relevant information about the image. Thus, removing these unimportant modes should agree with the intuition that images can be reduced in size while preserving the majority of the information content. Since the image is completely defined by the combination of all modes, the sum total of the singular values can be seen as a reasonable analog for the total information, or energy, contained in the image. Figure \ref{fig:svalenergyplot} shows the accumulation of energy as the number of modes representing the image increases from most to least significant. For example, to represent 80\% of the content of the image, the first 300 modes are needed.
+    Shown in Figure \ref{fig:svalplot} is a plot of the singular values, also called the singular value spectrum, of the image wagon.jpg. Of particular note is the low number of large singular values, approximately 100-200, compared to the total of 768. This compactness suggests the majority of the modes contain little relevant information about the image. Thus, removing these unimportant modes should agree with the intuition that images can be reduced in size while preserving the majority of the information content. Since the image is completely defined by the combination of all modes, the sum total of the singular values can be seen as a reasonable analog for the total information, or energy, contained in the image. Figure \ref{fig:svalenergyplot} shows the accumulation of energy as the number of modes representing the image increases from most to least significant. For example, to represent 80\% of the content of the image, the first 300 modes are needed.
 
-    The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but distortion appears to fade as the number of modes reaches 200-400. According to the cumulative energy plot in Figure \ref{fig:svalenergyplot}, this level of compression retains 68\% to 88\% of the information content of the image. A more quantitative measure of compressed image quality is peak signal-to-noise ratio (PSNR), defined in Equation \ref{eq:psnr}
+    The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but distortion appears to fade as the number of modes reaches 200-400. According to the cumulative energy plot in Figure \ref{fig:svalenergyplot}, this level of compression retains 68\% to 88\% of the information content of the image. A more quantitative measure of compressed image quality is peak signal-to-noise ratio (PSNR), defined in Equation (\ref{eq:psnr})
 
     \begin{equation}
     		\text{PSNR} = 10\text{log}_{10}\left(\frac{\text{peakval}^2}{\text{MSE}}\right)
     \label{eq:psnr}
     \end{equation}
-
+        %
     where peakval is the maximum representable value of the image's datatype - 8-bit integers in this example - and MSE is the mean squared error between the compressed image and original, uncompressed image.
 
 	\begin{figure}[t]
@@ -321,13 +321,11 @@ thoesens@arizona.edu}}
 
     \section{Conclusion}
 
-    In this paper we were able to show that the SVD and concepts from PCA could be implemented from scratch and used to solve the problem of image compression. A qualitative analysis by visual inspection and quantitative analysis using PSNR showed that an image can be compressed by a factor of 1.92 to 3.84 without a perceptive loss of quality. Compression is achieved by preserving the first 200-400 modes, or principle components, out of a total of 768. The PSNR of the compressed image ranges from 27dB to 34dB which is comparable to a high quality reconstruction. The implemented process and results are in agreement with the chief material in \cite{jaradet_svd_image_compression}.
+    In this paper we were able to show that the SVD and concepts from PCA could be implemented from scratch and used to solve the problem of image compression. A qualitative analysis by visual inspection and quantitative analysis using PSNR showed that an image can be compressed by a factor of 1.05 to 1.99 without a perceptive loss of quality. Compression is achieved by preserving the first 200-400 modes, or principle components, out of a total of 768. The PSNR of the compressed image ranges from 27dB to 34dB which is comparable to a high quality reconstruction. The implemented process and results are in agreement with the chief material in \cite{jaradet_svd_image_compression}.
     
     Future work would involve modifying the example to perform compression on the YCbCr color space as described in \cite{xu_color_conversion}. Where the singular value spectrum of an RGB image has the same shape for all three channels, the spectra for chrominance channels are more compact than that of the luminance channel. This leads to the possibility that further compression can be achieved by using less Cb and Cr modes than Y modes.
 
-    This project was an exercise in understanding the intricacies of the SVD and PCA, and the connection between them. Understanding these concepts requires a deep understanding of most of the topics covered in ECE 501b. By choosing this topic, one is forced to review all the fundamentals that are taught in class.
-
-    %Provide a summary and conclusion section in the report. How well did your example correlate or explain the concepts in the selected material? How would you modify your example to make it better? How did your selected project enhance your understanding of ECE 501b material?
+    This project was ultimately an exercise in understanding the intricacies of the SVD and PCA. Using many of the core concepts learned in ECE 501b, we were not only able to implement the SVD and understand PCA, we were able to explicitly show a direct connection between SVD and PCA. This connection was not explained or demonstrated in any of the reference materials. Furthermore, our derivation for the upper bound on compressibility was novel to this paper. Finally, the chief material in \cite{jaradet_svd_image_compression} did not use PSNR, or any metric, to perform a quantitative analysis of compression quality.
 
     \bibliography{sources}{}
     \bibliographystyle{ieeetr}
