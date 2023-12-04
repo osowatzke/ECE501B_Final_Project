@@ -39,7 +39,7 @@ thoesens@arizona.edu}}
     PCA was not explicitly covered in ECE 501b but its underlying machinery, the SVD was. An entire lecture was dedicated to covering the SVD, which is an accumulation of many core concepts learned throughout the semester. The SVD employs many linear algebra concepts including inner product spaces, the null space, injectivity and surjectivity, dimensionality, linear independence, bases, orthonormality, linear maps, eigenvalues and eigenvectors, adjoints of linear maps, square roots of linear maps, matrix representations of linear maps, matrix decomposition, diagonal matrices, square matrices, unitary matrices, and orthonormal matrices. These concepts will appear throughout this paper and are assumed to be known by means of ECE 501b lectures. External references will therefore not be provided since the implication is that relevant ECE 501b lectures serve as reference.
 
     \subsection{Motivation}
-    Digital images are signals, or vectors, which means they can be represented in various ways using different bases. Any basis is a set of linearly independent vectors or functions that completely describe the vector space in which they are defined. Vectors, or signals, can therefore be represented on a basis as a linear combination of the constituent basis vectors. This representation is shown in Equation \ref{eq:basisdef}
+    Digital images are signals, or vectors, which means they can be represented in various ways using different bases. Any basis is a set of linearly independent vectors or functions that completely describe the vector space in which they are defined. Vectors, or signals, can therefore be represented on a basis as a linear combination of the constituent basis vectors. This representation is shown in Equation (\ref{eq:basisdef})
 
     \begin{equation}
         v = \sum_{i=1}^{n} a_i \mathbf{\phi}_{i}
@@ -59,7 +59,7 @@ thoesens@arizona.edu}}
     SVD-, or PCA-, representation is a basis that is learned from the data itself. The basis vectors come from the structure of the signal and consequently form a more efficient representation. As will be shown in the Results section of this paper, this representation is also compact.
     
     \subsection{Singular Value Decomposition}
-    The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{R}^{n \times n}$, a unique representation of the form shown in Equation \ref{eq:svddef} exists.
+    The Singular Value Decomposition Theorem states that for any matrix $\mathbf{A} \in \mathbf{R}^{m \times n}$, a unique representation of the form shown in Equation (\ref{eq:svddef}) exists.
 
     \begin{equation}
         \mathbf{A} = \mathbf{U\Sigma }{\mathbf{V}^T}
@@ -73,7 +73,7 @@ thoesens@arizona.edu}}
 
     The SVD is a generalized analog of the eigendecomposition of a matrix, which is a result of the Spectral Theorem for certain linear operators, or square matrices. The eigenvectors of a full-rank normal matrix, found through eigendecomposition, form an orthonormal basis on the inner product space of the matrix called an eigenbasis. Thus, any vector in the inner product space can be represented completely and uniquely as an appropriate scaling of the eigenbasis vectors. The vectors of an eigenbasis are also called the modes of the matrix. The magnitude of the eigenvalue associated with each mode determines the relative importance, or significance, of the mode in the composition of the matrix. Modes with higher importance, or larger eigenvalues, contain more pertinent information about the matrix than modes with smaller eigenvalues. Analogously, the right singular vectors of any matrix represent the modes of the matrix in the domain and the left singular vectors represent the modes in the co-domain. The magnitudes of the singular values determine the relative joint-importance, or joint-significance, of the associated left and right singular vectors in representing the matrix.
 
-    Computing the SVD of a matrix $\mathbf{A}$ involves computing the eigendecomposition of both the row-wise autocorrelation matrix, $\mathbf{AA}^T$, and the column-wise autocorrelation matrix, $\mathbf{A}^T\mathbf{A}$. Both autocorrelation matrices are at least positive semi-definite which means unique eigendecompostions exist. Both decompositions are defined according to Equations \ref{eq:aatranspose} and \ref{eq:atransposea}
+    Computing the SVD of a matrix $\mathbf{A}$ involves computing the eigendecomposition of both the row-wise autocorrelation matrix, $\mathbf{AA}^T$, and the column-wise autocorrelation matrix, $\mathbf{A}^T\mathbf{A}$. Both autocorrelation matrices are at least positive semi-definite which means unique eigendecompostions exist. Both decompositions are defined according to Equations (\ref{eq:aatranspose}) and (\ref{eq:atransposea})
 
     \begin{equation}
          \mathbf{AA}^{T} = \mathbf{U\Lambda}\mathbf{U}^T
@@ -89,22 +89,22 @@ thoesens@arizona.edu}}
     
     \subsection{Principle Component Analysis}
     
-    Principle component analysis (PCA) re-expresses samples given in terms of one basis as linear combinations of new basis vectors \cite{shlens_2014_tutorial}. The new basis vectors are the principle components of the data set. They are chosen such the linear combination of basis vectors, used to write each sample, is largely dependent on the first basis vector and less dependent on subsequent basis vectors. This enables each sample of the data set to be approximated using fewer basis vectors. If the correct number of basis vectors are selected to approximate each sample, the data set can be compressed with minimal distortion.
+    PCA re-expresses samples given in terms of one basis as a linear combination of new basis vectors \cite{shlens_2014_tutorial}. The new basis vectors are the principle components of the data set. They are chosen such the linear combination of basis vectors, used to write each sample, is largely dependent on the first basis vector and less dependent on subsequent basis vectors. This allows each sample of the data set to be approximated using fewer basis vectors. If the correct number of basis vectors are selected to approximate each sample, the data set can be compressed with minimal distortion.
     
-    Denote each of the input sample as $\mathbf{x_i}$ and each of the principle components as $\mathbf{p_j}$, where $\mathbf{x_i}, \mathbf{p_j} \in \mathbf{R}^{m}$. If the principle components are constrained to orthonormal vectors, each input sample, $\mathbf{x_i}$ can be written as follows:
+    Denote each of the input samples as $\mathbf{x_i}$ and each of the principle components as $\mathbf{p_j}$, where $\mathbf{x_i}, \mathbf{p_j} \in \mathbf{R}^{n}$. If the principle components are constrained to be orthonormal, each input sample, $\mathbf{x_i}$, can be written as the following projection:
     %
     \begin{equation}
-    		\mathbf{x_i} = \langle \mathbf{x_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_i}, \mathbf{p_m} \rangle \mathbf{p_m}
-    		\label{eq:linear_combo_orthonormal_vectors}
-    	\end{equation}
+    		\mathbf{x_i} = \langle \mathbf{x_i}, \mathbf{p_1} \rangle \mathbf{p_1} + \cdots + \langle \mathbf{x_i}, \mathbf{p_n} \rangle \mathbf{p_n}
+    \label{eq:linear_combo_orthonormal_vectors}
+    \end{equation}
     	%
-    	Let $\mathbf{y_i}$ be a vector of the scalars used to weight each of the principle components in equation (\ref{eq:linear_combo_orthonormal_vectors}). Then $\mathbf{y_i}$ can be written as follows:
+    Let $\mathbf{y_i}$ be a vector of the scalars used to weigh each of the principle components in equation (\ref{eq:linear_combo_orthonormal_vectors}). Then $\mathbf{y_i}$ can be written as follows:
     	%
     	\begin{equation}
         \mathbf{y_i} = \begin{bmatrix}
                         \langle \mathbf{x_i}, \mathbf{p_1} \rangle\\
                         \vdots \\
-                        \langle \mathbf{x_i}, \mathbf{p_m}\rangle
+                        \langle \mathbf{x_i}, \mathbf{p_n}\rangle
                         \end{bmatrix}
     \end{equation}
     
@@ -160,13 +160,13 @@ thoesens@arizona.edu}}
 		\mathbf{\mathbf{C_Y}} = {\mathbf{PC_XP^T}}
 	\end{equation}
 	%
-	where $\mathbf{C_X}$ is the covariance matrix of $\mathbf{X}$ \cite{shlens_2014_tutorial}. If an eigen-decomposition of $\mathbf{C_X}$ is performed, the result will be
+	where $\mathbf{C_X}$ is the covariance matrix of $\mathbf{X}$ \cite{shlens_2014_tutorial}. If an eigendecomposition of $\mathbf{C_X}$ is performed, the result will be
 	%
 	\begin{equation}
 		\mathbf{C_X} = \mathbf{EDE^T}
 	\end{equation}
 	%
-	where $\mathbf{E}$ is a matrix with columns that are the eigenvectors of $\mathbf{C_X}$ and $\mathbf{D}$ is a diagonal matrix with the eigenvalues of $\mathbf{C_X}$ on the diagonal. If $\mathbf{P} = \mathbf{E^{-1}} = \mathbf{E^T}$, the resulting covariance matrix $\mathbf{C_Y}$ will be diagonal and equivalent to $\mathbf{D}$. Therefore, the principle components should be the eigenvectors of $\mathbf{C_X}$, sorted based on their corresponding eigenvalues. I.e. \newline $\mathbf{p_1} = \mathbf{e_1}, ..., \mathbf{p_n} = \mathbf{e_n}$ for $\lambda_1 > \cdots > \lambda_n$. 
+	where $\mathbf{E}$ is a matrix with columns that are the eigenvectors of $\mathbf{C_X}$ and $\mathbf{D}$ is a diagonal matrix with the eigenvalues of $\mathbf{C_X}$ on the diagonal. If $\mathbf{P} = \mathbf{E^{-1}} = \mathbf{E^T}$, the resulting covariance matrix $\mathbf{C_Y}$ will be diagonal and equivalent to $\mathbf{D}$. Therefore, the principle components should be the eigenvectors of $\mathbf{C_X}$, sorted based on their corresponding eigenvalues. I.e. \newline $\mathbf{p_1} = \mathbf{e_1}, ..., \mathbf{p_m} = \mathbf{e_m}$ for $\lambda_1 > \cdots > \lambda_m$. 
 	
 	SVD can also be used to find the principle components. Start by defining $\mathbf{A}$ such that
 	%
@@ -174,7 +174,7 @@ thoesens@arizona.edu}}
 		\mathbf{A} = \frac{1}{\sqrt{n}}\mathbf{X}
 	\end{equation*}
 	%
-	Then, $\mathbf{AA^T} = \mathbf{C_X}$. Referring to Equation (\ref{eq:aatranspose}), the eigenvectors of $\mathbf{AA^T}$ are equivalent to the columns of $\mathbf{U}$. Furthermore, scaling the matrix $\mathbf{X}$ by $1/\sqrt{n}$ only scales the eigenvalues, $\Lambda$, but does not change the eigenvectors, $\mathbf{U}$. Therefore, an SVD can be performed directly $\mathbf{X}$ and the columns of the resulting $\mathbf{U}$ matrix will be the principle components.
+	Then, $\mathbf{AA^T} = \mathbf{C_X}$. Referring to Equation (\ref{eq:aatranspose}), the eigenvectors of $\mathbf{AA^T}$ are equivalent to the columns of $\mathbf{U}$. Furthermore, scaling the matrix $\mathbf{X}$ by $1/\sqrt{n}$ only scales the eigenvalues, $\Lambda$, but does not change the eigenvectors, $\mathbf{U}$. Therefore, an SVD can be performed directly on $\mathbf{X}$ and the columns of the resulting $\mathbf{U}$ matrix will be the principle components.
     
     \subsection{Image Compression Using PCA} \label{pca_section}
     	
@@ -189,9 +189,9 @@ thoesens@arizona.edu}}
     		\end{bmatrix}    			
     	\end{equation}
     	%
-    	Each column of the above matrix can be treated as an input sample. PCA then attempts to find a better basis for each of these samples. As described above, the principles components are the columns of the $\mathbf{U}$ matrix that results from a SVD of the matrix $\mathbf{X}$.
+    Each column of the above matrix can be treated as an input sample. PCA then attempts to find a better basis for each of these samples. As described above, the principles components are the columns of the $\mathbf{U}$ matrix that result from a SVD of the matrix $\mathbf{X}$.
 	
-	For $m < n$, the SVD output can be expanded as follows:
+    For $m < n$, the SVD output can be expanded as follows:
 	
 	\begin{equation}
 		\begin{bmatrix}
@@ -208,9 +208,9 @@ thoesens@arizona.edu}}
 		\end{bmatrix}		
 	\end{equation}
 	%
-	where $\mathbf{u_i}$ are columns vectors of the $\mathbf{U}$ matrix, $\sigma_j$ are the singular values on the diagonal of the $\mathbf{\Sigma}$ matrix, and $\mathbf{v_k}$ are the column vectors of the $\mathbf{V}$ matrix.
+    where $\mathbf{u_i}$ are columns vectors of the $\mathbf{U}$ matrix, $\sigma_j$ are the singular values on the diagonal of the $\mathbf{\Sigma}$ matrix, and $\mathbf{v_k}$ are the column vectors of the $\mathbf{V}$ matrix.
 	  
-	Multiplying $\mathbf{\Sigma}$ with $\mathbf{V^T}$, the SVD output can be rewritten as follows:
+    Multiplying $\mathbf{\Sigma}$ with $\mathbf{V^T}$, the SVD output can be rewritten as follows:
 	%
 	\begin{equation}
 		\begin{bmatrix}
@@ -231,11 +231,11 @@ thoesens@arizona.edu}}
 		\mathbf{x_i} = \sigma_1v_{i1}\mathbf{u_1} + \cdots \sigma_mv_{im}\mathbf{u_m}
 	\end{equation*}   	
     	%
-    	Recognizing that each $\mathbf{u_j}$ term is the principle component $\mathbf{p_j}$, the scalars $\sigma_jv_{ij}$ are the inner products $\langle \mathbf{x_i}, \mathbf{p_j}\rangle$. Therefore, the remaining SVD outputs, $\mathbf{\Sigma}$ and $\mathbf{V}$, can be used along with $\mathbf{U}$ to recreate each sample or column of the original image.  
+    Recognizing that each $\mathbf{u_j}$ term is the principle component $\mathbf{p_j}$, the scalars $\sigma_jv_{ij}$ are the inner products $\langle \mathbf{x_i}, \mathbf{p_j}\rangle$. Therefore, the remaining SVD outputs, $\mathbf{\Sigma}$ and $\mathbf{V}$, can be used along with $\mathbf{U}$ to recreate each sample or column of the original image.  
     	
-    	To perform compression, recognize that less important principle components can be discarded without significantly distorting the image.  Assume $r < m$ of the principle components are kept, and the rest are discarded. This is equivalent to keeping the first $r$ columns of the $\mathbf{U}$ matrix, the first $r$ rows and first $r$ columns of the $\mathbf{\Sigma}$ matrix, and the first $r$ columns of the $\mathbf{V}$ matrix. Because $\mathbf{\Sigma}$ is diagonal, storage can be further optimized by keep just the first $r$ diagonal elements of $\mathbf{\Sigma}$.
+    To perform compression, less important principle components can be discarded without significantly distorting the image.  Assume $r < m$ of the principle components are kept, and the rest are discarded. This is equivalent to keeping the first $r$ columns of the $\mathbf{U}$ matrix, the first $r$ rows and first $r$ columns of the $\mathbf{\Sigma}$ matrix, and the first $r$ columns of the $\mathbf{V}$ matrix. Because $\mathbf{\Sigma}$ is diagonal, storage can be further optimized by keep just the first $r$ diagonal elements of $\mathbf{\Sigma}$.
     	
-    Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{\hat{U}} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\hat{\sigma}} \in \mathbf{R}^{r}$, and a matrix $\mathbf{\hat{V}} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\hat{\Sigma}}$ using the vector $\mathbf{\hat{\sigma}}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by Equation \ref{eq:imgrecon}
+    Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{\hat{U}} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\hat{\sigma}} \in \mathbf{R}^{r}$, and a matrix $\mathbf{\hat{V}} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\hat{\Sigma}}$ using the vector $\mathbf{\hat{\sigma}}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by Equation (\ref{eq:imgrecon})
 
     \begin{equation}
         \mathbf{\hat{X}} = \mathbf{\hat{U}{\hat{\Sigma}}\hat{V}^T}
@@ -244,30 +244,32 @@ thoesens@arizona.edu}}
 
     \subsection{Compressibility Upper Bound}
 
-    When expressed canonically a color image contains exactly $m \times n \times 3$ elements. When expressed under SVD the same image contains at minimum $(m+n+1)\times 3$ elements, and at most $(m^2 + m\times n + m) \times 3$ elements, assuming $m<n$. In general, the SVD of an image contains $r\times (m + n + 1) \times 3$ elements. It is clear from these expressions that an upper bound exists on $r$, and exceeding this bound will result in an image that is larger than the original. The ratio between the number of elements in the canonical form of the image and the number of elements in the SVD of the compressed image must satisfy the inequality in Equation \ref{eq:compressionineq}
+    When expressed canonically a color image contains exactly $m \times n \times 3$ elements. When expressed under SVD the same image contains at minimum $(m+n+1)\times 3$ elements, and at most $(m^2 + m\times n + m) \times 3$ elements, assuming $m<n$. In general, the SVD of an image contains $r\times (m + n + 1) \times 3$ elements. It is clear from these expressions that an upper bound exists on $r$, and exceeding this bound will result in an image that is larger than the original. The ratio between the number of elements in the canonical form of the image and the number of elements in the SVD of the compressed image must satisfy the inequality in Equation (\ref{eq:compressionineq})
 	%
     \begin{equation}
         \frac{m\times n}{r\times (m + n + 1)}>1
     \label{eq:compressionineq}
     \end{equation}
-	%
+
     Therefore, the upper bound on $r$ is
 	%
     \begin{equation}
         r < \frac{m\times n}{(m + n + 1)}
     \end{equation}
+
+    The mean value of the image is also stored but is not included in the derivation due to its marginal impact, i.e.: $r\times (m + n + 1) \times 3 \approx r\times (m + n + 1) \times 3 + 1$
     
     \section{Results}
 
-    The compression technique described in Section \ref{pca_section} is implemented in Matlab. The Matlab built-in image 'wagon.jpg' is used throughout this section as an example for both qualitative and quantitative analysis of the compression scheme. Qualitative analysis is performed through visual inspection of image quality after compression. Quantitative analysis is performed by examining the peak signal-to-noise ratio (PSNR) of the compressed image, compared to the original, uncompressed image.
+    The compression technique described in Section \ref{pca_section} is implemented in Matlab. The Matlab built-in image 'wagon.jpg' is used throughout this section as an example for both qualitative and quantitative analysis of the compression scheme. Qualitative analysis is performed through visual inspection of image quality after compression. Quantitative analysis is performed by examining the peak signal-to-noise ratio (PSNR) of the compressed image compared to the original, uncompressed image.
 
     \subsection{Data}
     The Matlab built-in image 'wagon.jpg' is an 8-bit 1024x768 RGB image that contains three channels of red, green, and blue color data. The total uncompressed image size is 2,359,296 Bytes, or 2.25 MB.
 
     \subsection{Design}
-    The compression engine works in four main steps, repeated for each of three color channels. The first step converts the image matrix of size $m \times n$ to a double precision floating point representation. The second step computes the mean value of the entire matrix and subtracts it from each element. The third step implements Matlab's built-in SVD function to calculate the $\mathbf{U}$, $\mathbf{\Sigma}$, and$\mathbf{V}$ matrices. The fourth step involves truncating the SVD by storing the first $r$ columns of the $\mathbf{U}$ and $\mathbf{V}$ matrices and the first $r$ elements of the trace of the $\mathbf{\Sigma}$ matrix. The matrix mean value is also stored.
+    The compression engine works in four main steps, repeated for each of three color channels. The first step converts the image matrix of size $m \times n$ to a double precision floating point representation. The second step computes the mean value of the entire matrix and subtracts it from each element. The third step implements Matlab's built-in SVD function to calculate the $\mathbf{U}$, $\mathbf{\Sigma}$, and $\mathbf{V}$ matrices. The fourth step involves truncating the SVD by storing the first $r$ columns of the $\mathbf{U}$ and $\mathbf{V}$ matrices and the first $r$ elements of the main diagonal of the $\mathbf{\Sigma}$ matrix. The matrix mean value is also stored.
 
-    Decompression, or reconstruction, is performed in one step according to Equation \ref{eq:imgrecon}
+    Decompression, or reconstruction, is performed in one step according to Equation (\ref{eq:imgrecon})
     
     \subsection{Analysis}
     As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its modes. The relative importance, or significance, of a mode is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective modes.
