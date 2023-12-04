@@ -235,12 +235,12 @@ thoesens@arizona.edu}}
     	
     	To perform compression, recognize that less important principle components can be discarded without significantly distorting the image.  Assume $r < m$ of the principle components are kept, and the rest are discarded. This is equivalent to keeping the first $r$ columns of the $\mathbf{U}$ matrix, the first $r$ rows and first $r$ columns of the $\mathbf{\Sigma}$ matrix, and the first $r$ columns of the $\mathbf{V}$ matrix. Because $\mathbf{\Sigma}$ is diagonal, storage can be further optimized by keep just the first $r$ diagonal elements of $\mathbf{\Sigma}$.
     	
-    	Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{U} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\sigma} \in \mathbf{R}^{r}$, and a matrix $\mathbf{V} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\Sigma}$ using the vector $\mathbf{\sigma}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by $\mathbf{\hat{X}} = \mathbf{U{\Sigma}V^T}$.
-    	  
-    %TALK ABOUT PCA HERE
-    %How does the selected material for your project relate to SVD?
-    %Theory of compression using PCA
+    Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{\hat{U}} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\sigma} \in \mathbf{R}^{r}$, and a matrix $\mathbf{\hat{V}} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\hat{\Sigma}}$ using the vector $\mathbf{\sigma}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by Equation \label{eq:imgrecon}
 
+    \begin{equation}
+        \mathbf{\hat{X}} = \mathbf{\hat{U}{\hat{\Sigma}}\hat{V}^T}
+    \label{eq:imgrecon}
+    \end{equation}
     \section{Results}
 
     The compression technique described in Section \ref{pca_section} is implemented in Matlab. The Matlab built-in image 'wagon.jpg' is used throughout this section as an example for both qualitative and quantitative analysis of the compression scheme. Qualitative analysis is performed through visual inspection of image quality after compression. Quantitative analysis is performed by examining the peak signal-to-noise ratio (PSNR) of the compressed image, compared to the original, uncompressed image.
@@ -252,13 +252,6 @@ thoesens@arizona.edu}}
     The compression engine works in four main steps, repeated for each of three color channels. The first step converts the image matrix of size $m \times n$ to a double precision floating point representation. The second step computes the mean value of the entire matrix and subtracts it from each element. The third step implements Matlab's built-in SVD function to calculate the $\mathbf{U}$, $\mathbf{\Sigma}$, and$\mathbf{V}$ matrices. The fourth step involves truncating the SVD by storing the first $r$ columns of the $\mathbf{U}$ and $\mathbf{V}$ matrices and the first $r$ elements of the trace of the $\mathbf{\Sigma}$ matrix. The matrix mean value is also stored.
 
     Decompression, or reconstruction, is performed in one step according to Equation \ref{eq:imgrecon}
-
-    \begin{equation}
-		Image = \mathbf{\hat{U}}\mathbf{\hat{\Sigma}}\mathbf{\hat{V}}^T + \bar{m}
-        \label{eq:imgrecon}
-    \end{equation}
-
-    where $\mathbf{\hat{U}}$ is the truncated $\mathbf{U}$ matrix, $\mathbf{\hat{V}}$ is the truncated $\mathbf{V}$ matrix, $\bar{m}$ is the stored mean value, and $\mathbf{\hat{\Sigma}}$ is constructed by creating a $m \times r$ zeros matrix and placing the trace of $\mathbf{\Sigma}$ on the diagonal.
     
     \subsection{Analysis}
     As mentioned in Section \ref{pca_section} every matrix can be decomposed into a linear combination of its modes. The relative importance, or significance, of a mode is determined by the magnitude of its associated singular value. A digital image is represented by a matrix and is therefore decomposed in the same way. In the context of image decomposition, the magnitude of each singular value determines the relative quantity of image information present in the respective modes.
