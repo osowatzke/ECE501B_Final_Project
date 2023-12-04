@@ -25,11 +25,11 @@ thoesens@arizona.edu}}
     
 	\maketitle
 	\begin{abstract}
-	% Add abstract here
+		This project demonstrates how principle component analysis (PCA) can be used to perform image compression. Building on the material covered in ECE 501B, it provides the necessary background on PCA, specifically examining the relationship between PCA and singular value decomposition (SVD). The provided background goes into more detail than similar references and demonstrates how SVD can be used to perform PCA. The compression scheme focuses on discarding less significant principle component, reducing the size of the compressed image while preserving image quality. The compression results are qualitatively analyzed by visually inspecting compressed images and quantitatively analyzed by examining their peak signal-to-noise ratio (PSNR) as a function of compression ratio.   
 	\end{abstract}
 
 	\begin{IEEEkeywords}
-	% Add keywords here
+		Image Compression, Principle Component Analysis, Signal Value Decomposition, Peak Signal-to-Noise Ratio, Compression Ratio
 	\end{IEEEkeywords}
 
     \section{Introduction}
@@ -244,17 +244,17 @@ thoesens@arizona.edu}}
 
     \subsection{Compressibility Upper Bound}
 
-    When expressed canonically a color image contains exactly $m \times n \times 3$ elements. When expressed under SVD the same image contains at minimum $(m+n)\times 3$ elements, and at most $(m^2 + m\times n) \times 3$ elements, assuming $m<n$. In general, the SVD of an image contains $r\times (m + n) \times 3$ elements. It is clear from these expressions that an upper bound exists on $r$, and exceeding this bound will result in an image that is larger than the original. The ratio between the number of elements in the canonical form of the image and the number of elements in the SVD of the compressed image must satisfy the inequality in Equation \ref{eq:compressionineq}
-
+    When expressed canonically a color image contains exactly $m \times n \times 3$ elements. When expressed under SVD the same image contains at minimum $(m+n+1)\times 3$ elements, and at most $(m^2 + m\times n + m) \times 3$ elements, assuming $m<n$. In general, the SVD of an image contains $r\times (m + n + 1) \times 3$ elements. It is clear from these expressions that an upper bound exists on $r$, and exceeding this bound will result in an image that is larger than the original. The ratio between the number of elements in the canonical form of the image and the number of elements in the SVD of the compressed image must satisfy the inequality in Equation \ref{eq:compressionineq}
+	%
     \begin{equation}
-        \frac{m\times n}{r\times (m + n)}>1
+        \frac{m\times n}{r\times (m + n + 1)}>1
     \label{eq:compressionineq}
     \end{equation}
-
+	%
     Therefore, the upper bound on $r$ is
-
+	%
     \begin{equation}
-        r < \frac{m\times n}{(m + n)}
+        r < \frac{m\times n}{(m + n + 1)}
     \end{equation}
     
     \section{Results}
