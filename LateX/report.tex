@@ -235,7 +235,7 @@ thoesens@arizona.edu}}
     	
     	To perform compression, recognize that less important principle components can be discarded without significantly distorting the image.  Assume $r < m$ of the principle components are kept, and the rest are discarded. This is equivalent to keeping the first $r$ columns of the $\mathbf{U}$ matrix, the first $r$ rows and first $r$ columns of the $\mathbf{\Sigma}$ matrix, and the first $r$ columns of the $\mathbf{V}$ matrix. Because $\mathbf{\Sigma}$ is diagonal, storage can be further optimized by keep just the first $r$ diagonal elements of $\mathbf{\Sigma}$.
     	
-    Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{\hat{U}} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\sigma} \in \mathbf{R}^{r}$, and a matrix $\mathbf{\hat{V}} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\hat{\Sigma}}$ using the vector $\mathbf{\sigma}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by Equation \label{eq:imgrecon}
+    Note that the result above was derived using $m < n$. However, the result is similar for $n < m$. The only difference is that $r$ must be less than $n$ instead of $m$. Therefore, in general, the SVD output can be used to compress an image. The compressed image will consist of a matrix $\mathbf{\hat{U}} \in \mathbf{R}^{m \times r}$, a vector $\mathbf{\hat{\sigma}} \in \mathbf{R}^{r}$, and a matrix $\mathbf{\hat{V}} \in \mathbf{R}^{n \times r}$. To reconstruct the image, form an $r \times r$ diagonal matrix $\mathbf{\hat{\Sigma}}$ using the vector $\mathbf{\hat{\sigma}}$. Then, the reconstructed image $\mathbf{\hat{X}}$ is given by Equation \label{eq:imgrecon}
 
     \begin{equation}
         \mathbf{\hat{X}} = \mathbf{\hat{U}{\hat{\Sigma}}\hat{V}^T}
@@ -279,11 +279,11 @@ thoesens@arizona.edu}}
     The effect of additional modes can be seen in Figure \ref{fig:showwagondiffr}. There are clear signs of distortion when the number of representative modes is low, in the range of 10-20, but distortion appears to fade as the number of modes reaches 200-400. According to the cumulative energy plot in Figure \ref{fig:svalenergyplot}, this level of compression retains 68\% to 88\% of the information content of the image. A more quantitative measure of compressed image quality is peak signal-to-noise ratio (PSNR), defined in Equation \ref{eq:psnr}
 
     \begin{equation}
-    		PSNR = 10log_{10}(\frac{peakval^2}{MSE})
+    		\text{PSNR} = 10\text{log}_{10}\left(\frac{\text{peakval}^2}{\text{MSE}}\right)
     \label{eq:psnr}
     \end{equation}
 
-    where $peakval$ is the maximum representable value of the image's datatype - 8-bit integers in this example - and $MSE$ is the mean squared error between the compressed image and original, uncompressed image.
+    where peakval is the maximum representable value of the image's datatype - 8-bit integers in this example - and MSE is the mean squared error between the compressed image and original, uncompressed image.
 
 	\begin{figure}[t]
         \includegraphics[width=0.5\textwidth]{snrvsr_wagon_rgb}
